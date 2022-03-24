@@ -73,17 +73,31 @@ class _MainPagePageState extends State<MainPage> {
 
           List<Appointment> appointmentList = snapshot.data!;
 
-          appointmentList.map( ); //TODO continuar!
+          List<Widget> widgetList = <Widget>[];
 
-          return PatientRequestWidget(appointment: appointmentList[0]);
+          for (int i = 0; i < appointmentList.length; i++) {
+            widgetList
+                .add(new PatientRequestWidget(appointment: appointmentList[i]));
+            if (i < appointmentList.length - 1)
+              widgetList.add(Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: Divider(
+                    height: 25,
+                    color: Colors.grey,
+                  )));
+          }
+          //appointmentList.map( ); //TODO continuar!
+
+          return buildCard(widgetList);
         });
   }
 
-  Widget buildCard(List<Appointment> appointmentList) {
+  Widget buildCard(List<Widget> widgetList) {
     return Card(
-        child: 
-
-    );
+        elevation: 5,
+        child: Column(
+          children: widgetList,
+        ));
   }
 
   Widget _buildSecondLine() {

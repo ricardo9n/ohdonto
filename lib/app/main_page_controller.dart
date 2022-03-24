@@ -4,7 +4,7 @@ import 'package:ohdonto/app/models/patient.dart';
 
 class MainPageController {
   Future<List<Appointment>> loadAppointments() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
 
     Appointment app1 = Appointment(
       patient: Patient('assets/images/profile.png', 'RR'),
