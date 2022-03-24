@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:ohdonto/app/main_page_controller.dart';
 import 'package:ohdonto/app/models/appointment.dart';
 import 'package:ohdonto/app/models/appointment_time.dart';
 import 'package:ohdonto/app/models/patient.dart';
+import 'package:ohdonto/app/pages/patient_request.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -11,115 +13,76 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPagePageState extends State<MainPage> {
-  late Appointment _appointment, _app2;
+  //late Future<List<Appointment>> appointments;
+  int ourCurrentIndex = 0;
+  late MainPageController controller;
 
   @override
   void initState() {
     super.initState();
-
-    _appointment = Appointment(
-      patient: Patient('assets/images/profile.png', 'RR'),
-      description: 'Canal dentário',
-      appointmentTime: AppointmentTime(
-        DateTime(2022, 3, 20, 10, 30),
-        DateTime(2022, 3, 20, 11, 0),
-      ),
-      isConfirmed: true,
-    );
-  
-    _app2 = Appointment(
-      patient: Patient('assets/images/profile.png', 'RR'),
-      description: 'Canal dentário',
-      appointmentTime: AppointmentTime(
-        DateTime(2022, 3, 20, 10, 30),
-        DateTime(2022, 3, 20, 11, 0),
-      ),
-      isConfirmed: false,
-    );
+    controller = MainPageController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildFirsLine(),
-                    _buildSecondLine(),
-                    _buildAppointment(_appointment),
-                    _buildAppointment(_app2),
-                    _buildAppointment(_appointment)
-                  ],
-                ))));
-  }
-
-  Widget _buildAppointment(Appointment appointment) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildConfirmed(appointment),
-          const SizedBox(
-            width: 12,
-          ),
-          _buildProfilePicture(appointment),
-          const SizedBox(
-            width: 12,
-          ),
-          Expanded(child: _buildPatientRequestList(appointment)),
-          _buildCircledArrow(),
+      body: SafeArea(
+          child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildFirsLine(),
+                  _buildSecondLine(),
+                  _buildAppointmentList(),
+                ],
+              ))),
+      bottomNavigationBar: BottomNavigationBar(
+        unselectedItemColor: Colors.blue.shade300,
+        selectedItemColor: Colors.blue.shade800,
+        currentIndex: ourCurrentIndex,
+        items: const [
+          BottomNavigationBarItem(
+              label: 'Calendário1', icon: Icon(Icons.calendar_month)),
+          BottomNavigationBarItem(
+              label: 'Pedidos', icon: Icon(Icons.description)),
+          BottomNavigationBarItem(label: 'Chat', icon: Icon(Icons.chat)),
+          BottomNavigationBarItem(
+              label: 'Perfil', icon: Icon(Icons.supervised_user_circle)),
+          BottomNavigationBarItem(
+              label: 'Calendário', icon: Icon(Icons.calendar_month)),
         ],
+        onTap: (index) {
+          print('Indice atual: $index');
+          setState(() {
+            ourCurrentIndex = index;
+          });
+          ourCurrentIndex = index;
+        },
       ),
     );
   }
 
-  Widget _buildCircledArrow() {
-    return Container(
-      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Icon(
-          Icons.arrow_forward_ios_outlined,
-          size: 15,
-          color: Colors.white,
-        ),
-      ),
-    );
+  Widget _buildAppointmentList() {
+    return FutureBuilder<List<Appointment>>(
+        future: controller.loadAppointments(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const CircularProgressIndicator();
+          }
+
+          List<Appointment> appointmentList = snapshot.data!;
+
+          appointmentList.map( ); //TODO continuar!
+
+          return PatientRequestWidget(appointment: appointmentList[0]);
+        });
   }
 
-  Widget _buildConfirmed(Appointment appointment) {
-    return Container(
-        width: 5,
-        height: 50,
-        color: appointment.isConfirmed ? Colors.green : Colors.red);
-  }
+  Widget buildCard(List<Appointment> appointmentList) {
+    return Card(
+        child: 
 
-  Widget _buildProfilePicture(Appointment appointment) {
-    final String profile = appointment.patient.profilePicturePath;
-    return CircleAvatar(
-      radius: 20,
-      backgroundImage: AssetImage(profile),
-    );
-  }
-
-  Widget _buildPatientRequestList(Appointment appointment) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          appointment.patient.name,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-        Text(appointment.description),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Text(appointment.formatAppointmentTime()),
-        ),
-      ],
     );
   }
 
