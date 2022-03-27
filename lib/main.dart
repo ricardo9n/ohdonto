@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ohdonto/teste/stream_page.dart';
 import 'get-start/onboarding_screen.dart';
 
 void main() {
@@ -17,7 +18,8 @@ class OhDontoApp extends StatelessWidget {
             primaryColor: Colors.blue,
             fontFamily: 'Euclid',
             scaffoldBackgroundColor: Colors.grey.shade100),
-        home: OnBoardingScreenWidget() //const MainPage(),
+        //home: OnBoardingScreenWidget() //const MainPage(),
+        home: const StreamPage()
         );
   }
 }
