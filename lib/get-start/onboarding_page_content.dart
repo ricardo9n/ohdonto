@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ohdonto/app/pages/sigin_sigup.dart';
 
+// ignore: must_be_immutable
 class OnboardingPageContent extends StatelessWidget {
   String imagePath;
   String title;
@@ -58,7 +59,8 @@ class OnboardingPageContent extends StatelessWidget {
       InkWell(
         onTap: () {
           pageController.nextPage(
-              duration: Duration(milliseconds: 300), curve: Curves.linear);
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.linear);
         },
         child: Container(
           margin: const EdgeInsets.only(bottom: 15),
@@ -75,8 +77,8 @@ class OnboardingPageContent extends StatelessWidget {
   Widget _buildSkipText(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SigInSigUpPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const SigInSigUpPage()));
       },
       child: const Text(
         "Pular",
@@ -89,7 +91,7 @@ class OnboardingPageContent extends StatelessWidget {
     return InkWell(
       onTap: () {
         pageController.previousPage(
-            duration: Duration(milliseconds: 300), curve: Curves.linear);
+            duration: const Duration(milliseconds: 300), curve: Curves.linear);
       },
       child: Container(
         margin: const EdgeInsets.all(15),

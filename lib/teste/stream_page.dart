@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohdonto/teste/StreamPageController.dart';
+import 'package:ohdonto/teste/stream_page_controller.dart';
 
 class StreamPage extends StatefulWidget {
   const StreamPage({Key? key}) : super(key: key);
@@ -20,33 +20,34 @@ class _StreamPageState extends State<StreamPage> {
                 stream: controller.getCheckboxStream(),
                 builder: (context, checkboxSnapshot) {
                   return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Checkbox(
-                        value: checkboxSnapshot.data ?? false,
-                        onChanged: (userChecked) {
-                          controller.getCheckboxSink.add(userChecked!);
-                          //print('add sink $userChecked');
-                        }),
-                    StreamBuilder<String>(
-                        stream: controller.nameStream,
-                        builder: (context, nameSnapshot) {
-                          if (checkboxSnapshot.data ?? false) {
-                            return Column(
-                              children: [
-                                TextField(
-                                    decoration: const InputDecoration(
-                                        label: Text('Nome: ')),
-                                    onChanged: (content) {
-                                      controller.nameSink.add(content);
-                                    }),
-                                Text('> ${nameSnapshot.data ?? ""} <')
-                              ],
-                            );
-                          } else
-                              return Container();
-                        })
-                  ]);
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Checkbox(
+                            value: checkboxSnapshot.data ?? false,
+                            onChanged: (userChecked) {
+                              controller.getCheckboxSink.add(userChecked!);
+                              //print('add sink $userChecked');
+                            }),
+                        StreamBuilder<String>(
+                            stream: controller.nameStream,
+                            builder: (context, nameSnapshot) {
+                              if (checkboxSnapshot.data ?? false) {
+                                return Column(
+                                  children: [
+                                    TextField(
+                                        decoration: const InputDecoration(
+                                            label: Text('Nome: ')),
+                                        onChanged: (content) {
+                                          controller.nameSink.add(content);
+                                        }),
+                                    Text('> ${nameSnapshot.data ?? ""} <')
+                                  ],
+                                );
+                              } else {
+                                return Container();
+                              }
+                            })
+                      ]);
                 })));
   }
 }
