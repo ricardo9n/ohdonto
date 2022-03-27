@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohdonto/app/main_page_controller.dart';
 import 'package:ohdonto/app/models/appointment.dart';
-import 'package:ohdonto/app/models/appointment_time.dart';
-import 'package:ohdonto/app/models/patient.dart';
 import 'package:ohdonto/app/pages/patient_request.dart';
 
 class MainPage extends StatefulWidget {
@@ -77,14 +75,15 @@ class _MainPagePageState extends State<MainPage> {
 
           for (int i = 0; i < appointmentList.length; i++) {
             widgetList
-                .add(new PatientRequestWidget(appointment: appointmentList[i]));
-            if (i < appointmentList.length - 1)
+                .add(PatientRequestWidget(appointment: appointmentList[i]));
+            if (i < appointmentList.length - 1) {
               widgetList.add(Container(
                   width: MediaQuery.of(context).size.width * 0.8,
-                  child: Divider(
+                  child: const Divider(
                     height: 25,
                     color: Colors.grey,
                   )));
+            }
           }
           //appointmentList.map( ); //TODO continuar!
 
