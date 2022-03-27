@@ -8,7 +8,7 @@ class SigInSigUpPage extends StatelessWidget {
     return Scaffold(
         body: Center(
             child: ElevatedButton(
-      child: Text('Voltar!'),
+      child: const Text('Voltar!'),
       onPressed: () {
         Navigator.pop(context);
       },

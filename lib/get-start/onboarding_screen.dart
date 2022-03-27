@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ohdonto/get-start/onboarding_page_content.dart';
 
+// ignore: must_be_immutable
 class OnBoardingScreenWidget extends StatelessWidget {
   PageController obsController = PageController();
   int pageIndex = 0;

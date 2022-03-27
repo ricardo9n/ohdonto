@@ -51,7 +51,8 @@ class _MainPagePageState extends State<MainPage> {
               label: 'Calendário', icon: Icon(Icons.calendar_month)),
         ],
         onTap: (index) {
-          print('Indice atual: $index');
+          // ignore: avoid_print
+          print('Indice atual: $index'); //TODO remove
           setState(() {
             ourCurrentIndex = index;
           });
@@ -77,7 +78,7 @@ class _MainPagePageState extends State<MainPage> {
             widgetList
                 .add(PatientRequestWidget(appointment: appointmentList[i]));
             if (i < appointmentList.length - 1) {
-              widgetList.add(Container(
+              widgetList.add(SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: const Divider(
                     height: 25,
