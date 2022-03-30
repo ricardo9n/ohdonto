@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'stream_page_controller mobx.dart';
+part of 'stream_page_controller_mobx.dart';
 
 // **************************************************************************
 // StoreGenerator

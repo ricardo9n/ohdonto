@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohdonto/app/pages/sigin_sigup.dart';
+import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
 
 // ignore: must_be_immutable
 class OnboardingPageContent extends StatelessWidget {
@@ -22,6 +23,11 @@ class OnboardingPageContent extends StatelessWidget {
 
   late Size pageSize;
 
+  void previusPageCallback() {
+    pageController.previousPage(
+        duration: const Duration(milliseconds: 300), curve: Curves.linear);
+  }
+
   @override
   Widget build(BuildContext context) {
     pageSize = MediaQuery.of(context).size;
@@ -34,7 +40,10 @@ class OnboardingPageContent extends StatelessWidget {
               ? MainAxisAlignment.spaceBetween
               : MainAxisAlignment.end,
           children: [
-            if (pageIndex > 0) _buildBackButton(),
+            if (pageIndex > 0)
+              TopbarBackButtonWidget(
+                callback: previusPageCallback,
+              ),
             _buildSkipText(context),
           ],
         ),
@@ -87,7 +96,7 @@ class OnboardingPageContent extends StatelessWidget {
     );
   }
 
-  Widget _buildBackButton() {
+  Widget _buildBackButtonX() {
     return InkWell(
       onTap: () {
         pageController.previousPage(

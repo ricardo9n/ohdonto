@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:ohdonto/stream/stream_page_controller%20mobx.dart';
+import 'package:ohdonto/stream/stream_page_controller_mobx.dart';
 
-class StreamPage extends StatefulWidget {
-  const StreamPage({Key? key}) : super(key: key);
+class StreamPageMobx extends StatefulWidget {
+  const StreamPageMobx({Key? key}) : super(key: key);
 
   @override
-  State<StreamPage> createState() => _StreamPageState();
+  State<StreamPageMobx> createState() => _StreamPageMobxState();
 }
 
-class _StreamPageState extends State<StreamPage> {
+class _StreamPageMobxState extends State<StreamPageMobx> {
   //bool isChecked = false;
   //StreamPageController controller = StreamPageController();
 
@@ -24,46 +24,23 @@ class _StreamPageState extends State<StreamPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: SafeArea(child: Observer(builder: (context) {
-      return Checkbox(
-          value: formController.isChecked,
-          onChanged: (userChecked) {
-            formController.check(userChecked!);
-            //print('add sink $userChecked');
-          });
+      return Column(
+        children: [
+          Checkbox(
+              value: formController.isChecked,
+              onChanged: (userChecked) {
+                formController.check(userChecked!);
+                //print('add sink $userChecked');
+              }),
+          if (formController.isChecked)
+            TextField(
+                decoration: const InputDecoration(label: Text('Nome: ')),
+                onChanged: (name_) {
+                  formController.changeName(name_);
+                }),
+          if (formController.isChecked) Text('> ${formController.name} <')
+        ],
+      );
     })));
   }
 }
-
-/*             child: StreamBuilder<bool>(
-                stream: controller.getCheckboxStream(),
-                builder: (context, checkboxSnapshot) {
-                  return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Checkbox(
-                            value: checkboxSnapshot.data ?? false,
-                            onChanged: (userChecked) {
-                              controller.getCheckboxSink.add(userChecked!);
-                              //print('add sink $userChecked');
-                            }),
-                        StreamBuilder<String>(
-                            stream: controller.nameStream,
-                            builder: (context, nameSnapshot) {
-                              if (checkboxSnapshot.data ?? false) {
-                                return Column(
-                                  children: [
-                                    TextField(
-                                        decoration: const InputDecoration(
-                                            label: Text('Nome: ')),
-                                        onChanged: (content) {
-                                          controller.nameSink.add(content);
-                                        }),
-                                    Text('> ${nameSnapshot.data ?? ""} <')
-                                  ],
-                                );
-                              } else {
-                                return Container();
-                              }
-                            })
-                      ]);
-                }))); */
