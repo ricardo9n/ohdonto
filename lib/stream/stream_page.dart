@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohdonto/teste/stream_page_controller.dart';
+import 'package:ohdonto/stream/stream_page_controller.dart';
 
 class StreamPage extends StatefulWidget {
   const StreamPage({Key? key}) : super(key: key);

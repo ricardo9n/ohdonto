@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohdonto/teste/stream_page.dart';
+import 'package:ohdonto/stream/stream_page.dart';
 
 void main() {
   runApp(const OhDontoApp());
