@@ -24,6 +24,21 @@ mixin _$FormController on _FormControllerBase, Store {
     });
   }
 
+  final _$nameAtom = Atom(name: '_FormControllerBase.name');
+
+  @override
+  String get name {
+    _$nameAtom.reportRead();
+    return super.name;
+  }
+
+  @override
+  set name(String value) {
+    _$nameAtom.reportWrite(value, super.name, () {
+      super.name = value;
+    });
+  }
+
   final _$_FormControllerBaseActionController =
       ActionController(name: '_FormControllerBase');
 
@@ -39,9 +54,21 @@ mixin _$FormController on _FormControllerBase, Store {
   }
 
   @override
+  void changeName(String name) {
+    final _$actionInfo = _$_FormControllerBaseActionController.startAction(
+        name: '_FormControllerBase.changeName');
+    try {
+      return super.changeName(name);
+    } finally {
+      _$_FormControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-isChecked: ${isChecked}
+isChecked: ${isChecked},
+name: ${name}
     ''';
   }
 }

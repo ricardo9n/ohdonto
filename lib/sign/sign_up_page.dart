@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
+import 'package:ohdonto/sign/sing_up_controller.dart';
+
+import 'text_field_widget.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -9,6 +12,20 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  late SingUpController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = SingUpController();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
         children: [
           _buildTopBarWidget(),
           _buildCreateAccountText(),
+          _buildForm(),
         ],
       ),
     ));
@@ -49,4 +67,39 @@ class _SignUpPageState extends State<SignUpPage> {
       ],
     );
   }
+
+  Widget _buildForm() {
+    return Column(children: [
+      TextFieldWidget(
+        text: 'Nome',
+        hint: 'Digite seu nome',
+        stream: controller.nameStream,
+        callback: controller.addName,
+      ),
+      TextFieldWidget(
+        text: 'Email',
+        hint: 'Digite seu Email',
+        stream: controller.emailStream,
+        callback: controller.addEmail,
+      ),
+      TextFieldWidget(
+        text: 'Senha',
+        hint: 'Digite sua senha',
+        stream: controller.passStream,
+        callback: controller.addPass,
+      ),
+      Container(
+          width: MediaQuery.of(context).size.width * 0.9,
+          height: MediaQuery.of(context).size.height * 0.05,
+          child: ElevatedButton(
+              onPressed: () {
+                controller.sendData();
+              },
+              child: const Text("Criar conta")))
+    ]);
+  }
 }
+
+      // 
+      // 
+      // TextFieldWidget(text: 'Nome', hint: 'Digite seu nome'),
