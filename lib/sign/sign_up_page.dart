@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
-import 'package:ohdonto/sign/sing_up_controller.dart';
+import 'package:ohdonto/sign/sign_in_sign_up_controller.dart';
 
 import 'text_field_widget.dart';
 
@@ -12,12 +12,12 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  late SingUpController controller;
+  late SignInSignUpController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = SingUpController();
+    controller = SignInSignUpController();
   }
 
   @override
