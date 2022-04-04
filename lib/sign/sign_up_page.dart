@@ -88,18 +88,35 @@ class _SignUpPageState extends State<SignUpPage> {
         stream: controller.passStream,
         callback: controller.addPass,
       ),
+      TextFieldWidget(
+        text: 'Confirmação de Senha',
+        hint: 'Digite novamente sua senha',
+        stream: controller.repetedPassStream,
+        callback: controller.addRepetedPass,
+      ),
+      StreamBuilder(
+          stream: controller.textStatusStream,
+          builder: (context, snapshot) {
+            if (snapshot.data == true) {
+              return Text("Senhas Diferentes");
+            } else {
+              return Container();
+            }
+          }),
       Container(
           width: MediaQuery.of(context).size.width * 0.9,
           height: MediaQuery.of(context).size.height * 0.05,
-          child: ElevatedButton(
-              onPressed: () {
-                controller.sendData();
-              },
-              child: const Text("Criar conta")))
+          child: StreamBuilder(
+              stream: controller.buttonStream,
+              builder: (context, snapshot) {
+                return ElevatedButton(
+                    onPressed: snapshot.data == true ? sendDataCallback : null,
+                    child: Text("Criar conta"));
+              }))
     ]);
   }
-}
 
-      // 
-      // 
-      // TextFieldWidget(text: 'Nome', hint: 'Digite seu nome'),
+  void sendDataCallback() {
+    controller.sendData1();
+  }
+}

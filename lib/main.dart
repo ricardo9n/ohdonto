@@ -27,6 +27,6 @@ class OhDontoApp extends StatelessWidget {
         //home: OnBoardingScreenWidget(),
         //home: //OnboardingPageContent(imagePath: '/assets/images/onboarding-dentist-front.png',"Pagina","Descricao"),
         //home: const StreamPageMobx()
-        home: GenderPage());
+        home: SignUpPage());
   }
 }
