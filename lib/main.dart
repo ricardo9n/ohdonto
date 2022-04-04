@@ -3,6 +3,7 @@ import 'package:ohdonto/sign/sign_up_page.dart';
 import 'package:ohdonto/stream/stream_page.dart';
 import 'package:ohdonto/stream/stream_page_mobx.dart';
 
+import 'gender/gender_page.dart';
 import 'onboarding/onboarding_page_content.dart';
 import 'onboarding/onboarding_screen.dart';
 
@@ -26,6 +27,6 @@ class OhDontoApp extends StatelessWidget {
         //home: OnBoardingScreenWidget(),
         //home: //OnboardingPageContent(imagePath: '/assets/images/onboarding-dentist-front.png',"Pagina","Descricao"),
         //home: const StreamPageMobx()
-        home: SignUpPage());
+        home: GenderPage());
   }
 }
