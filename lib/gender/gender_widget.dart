@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ohdonto/gender/gender_controller_mobx.dart';
 
-enum Genders { masculino, feminino, nao_informado }
+import 'genders.dart';
 
 class GenderWidget extends StatefulWidget {
   const GenderWidget({Key? key}) : super(key: key);
@@ -10,10 +11,18 @@ class GenderWidget extends StatefulWidget {
 }
 
 class _GenderWidgetState extends State<GenderWidget> {
-  Genders? _gender;
+  late GenderController controller;
 
-  void callbackGender(g) {
-    setState(() => _gender = g);
+  @override
+  void initState() {
+    super.initState();
+    controller = GenderController();
+  }
+
+  void changeRadioCallback(g) {
+    setState(() {
+      controller.setGender(g);
+    });
   }
 
   @override
@@ -21,25 +30,31 @@ class _GenderWidgetState extends State<GenderWidget> {
     return Column(children: [
       RadioListTile<Genders>(
         title: const Text('Masculino'),
-        subtitle: const Text('M'),
         value: Genders.masculino,
-        groupValue: _gender,
-        onChanged: (g) => setState(() => _gender = g),
-        visualDensity: VisualDensity(vertical: VisualDensity.maximumDensity),
+        groupValue: controller.gender(),
+        onChanged: changeRadioCallback,
+        visualDensity:
+            const VisualDensity(vertical: VisualDensity.minimumDensity),
       ),
       RadioListTile<Genders>(
         title: const Text('Feminino'),
         value: Genders.feminino,
-        groupValue: _gender,
-        onChanged: callbackGender,
-        visualDensity: VisualDensity(vertical: VisualDensity.maximumDensity),
+        groupValue: controller.gender(),
+        onChanged: changeRadioCallback,
+        visualDensity:
+            const VisualDensity(vertical: VisualDensity.minimumDensity),
       ),
       RadioListTile<Genders>(
         title: const Text('Não Informado'),
         value: Genders.nao_informado,
-        groupValue: _gender,
-        onChanged: callbackGender,
-        visualDensity: VisualDensity(vertical: VisualDensity.maximumDensity),
+        groupValue: controller.gender(),
+        onChanged: (g) {
+          setState(() {
+            controller.setGender(g);
+          });
+        },
+        visualDensity:
+            const VisualDensity(vertical: VisualDensity.minimumDensity),
       )
     ]);
   }
