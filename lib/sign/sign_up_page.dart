@@ -75,30 +75,33 @@ class _SignUpPageState extends State<SignUpPage> {
         hint: 'Digite seu nome',
         stream: controller.nameStream,
         callback: controller.addName,
+        obscureText: false,
       ),
       TextFieldWidget(
-        text: 'Email',
-        hint: 'Digite seu Email',
-        stream: controller.emailStream,
-        callback: controller.addEmail,
-      ),
+          text: 'Email',
+          hint: 'Digite seu Email',
+          stream: controller.emailStream,
+          callback: controller.addEmail,
+          keyboardType: TextInputType.emailAddress),
       TextFieldWidget(
-        text: 'Senha',
-        hint: 'Digite sua senha',
-        stream: controller.passStream,
-        callback: controller.addPass,
-      ),
+          text: 'Senha',
+          hint: 'Digite sua senha',
+          stream: controller.passStream,
+          callback: controller.addPass,
+          obscureText: false,
+          icon: const Icon(Icons.visibility)),
       TextFieldWidget(
         text: 'Confirmação de Senha',
         hint: 'Digite novamente sua senha',
         stream: controller.repetedPassStream,
         callback: controller.addRepetedPass,
+        obscureText: true,
       ),
       StreamBuilder(
           stream: controller.textStatusStream,
           builder: (context, snapshot) {
             if (snapshot.data == true) {
-              return Text("Senhas Diferentes");
+              return const Text("Senhas Diferentes");
             } else {
               return Container();
             }
@@ -111,7 +114,7 @@ class _SignUpPageState extends State<SignUpPage> {
               builder: (context, snapshot) {
                 return ElevatedButton(
                     onPressed: snapshot.data == true ? sendDataCallback : null,
-                    child: Text("Criar conta"));
+                    child: const Text("Criar conta"));
               }))
     ]);
   }
