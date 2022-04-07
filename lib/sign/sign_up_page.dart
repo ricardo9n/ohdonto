@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
 import 'package:ohdonto/sign/sign_in_sign_up_controller.dart';
 
@@ -69,6 +71,12 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildForm() {
+    return Observer(builder: (_) {
+      return _build();
+    });
+  }
+
+  Widget _build() {
     return Column(children: [
       TextFieldWidget(
         text: 'Nome',
