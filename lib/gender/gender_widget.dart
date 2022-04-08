@@ -46,7 +46,7 @@ class _GenderWidgetState extends State<GenderWidget> {
       ),
       RadioListTile<Genders>(
         title: const Text('Não Informado'),
-        value: Genders.nao_informado,
+        value: Genders.naoInformado,
         groupValue: controller.gender(),
         onChanged: (g) {
           setState(() {

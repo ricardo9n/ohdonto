@@ -1,1 +1,1 @@
-enum Genders { masculino, feminino, nao_informado }
+enum Genders { masculino, feminino, naoInformado }

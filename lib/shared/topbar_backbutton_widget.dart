@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TopbarBackButtonWidget extends StatelessWidget {
-  Function()? callback;
+  final Function()? callback;
 
-  TopbarBackButtonWidget({Key? key, this.callback}) : super(key: key);
+  const TopbarBackButtonWidget({Key? key, this.callback}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
