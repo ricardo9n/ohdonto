@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohdonto/sign/sign_up_page.dart';
+import 'package:ohdonto/signv2/sign_up_page.dart';
 
 void main() {
   runApp(const OhDontoApp());
