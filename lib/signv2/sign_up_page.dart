@@ -107,7 +107,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 text: 'Confirmação de Senha',
                 hint: 'Digite novamente sua senha',
                 callback: controller.setRePassword,
-                obscureText: true,
+                obscureText: !controller.isVisiblePassField,
+                icon: IconButton(
+                  icon: controller.isVisiblePassField
+                      ? const Icon(Icons.visibility)
+                      : const Icon(Icons.visibility_off),
+                  onPressed: controller.changePassFieldVisibility,
+                ),
               ),
               StreamBuilder(builder: (context, snapshot) {
                 if (snapshot.data == true) {
@@ -116,16 +122,20 @@ class _SignUpPageState extends State<SignUpPage> {
                   return Container();
                 }
               }),
-              SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.05,
-                  child: StreamBuilder(
-                      //              stream: controller.buttonStream,
-                      builder: (context, snapshot) {
+              Container(
+                  padding: const EdgeInsets.all(16),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.13,
+                  child: StreamBuilder(builder: (context, snapshot) {
                     return ElevatedButton(
-                        onPressed:
-                            snapshot.data == true ? sendDataCallback : null,
-                        child: const Text("Criar conta"));
+                        onPressed: controller.isFormValid ? () {} : null,
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12))),
+                        child: const Text(
+                          "Criar conta",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ));
                   }))
             ]),
       );

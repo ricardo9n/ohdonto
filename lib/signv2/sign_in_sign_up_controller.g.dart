@@ -58,6 +58,13 @@ mixin _$SignInSignUpController on _SignInSignUpControllerBase, Store {
       (_$isPassEqualComputed ??= Computed<bool>(() => super.isPassEqual,
               name: '_SignInSignUpControllerBase.isPassEqual'))
           .value;
+  Computed<bool>? _$isFormValidComputed;
+
+  @override
+  bool get isFormValid =>
+      (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid,
+              name: '_SignInSignUpControllerBase.isFormValid'))
+          .value;
 
   final _$_nameAtom = Atom(name: '_SignInSignUpControllerBase._name');
 
@@ -207,7 +214,8 @@ isValidPassword: ${isValidPassword},
 nameErrorMessage: ${nameErrorMessage},
 emailErrorMessage: ${emailErrorMessage},
 passwordErrorMsg: ${passwordErrorMsg},
-isPassEqual: ${isPassEqual}
+isPassEqual: ${isPassEqual},
+isFormValid: ${isFormValid}
     ''';
   }
 }

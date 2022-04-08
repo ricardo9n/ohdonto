@@ -36,6 +36,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       return TextField(
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
+          maxLength: 50,
           decoration: InputDecoration(
             fillColor: Colors.white,
             filled: true,

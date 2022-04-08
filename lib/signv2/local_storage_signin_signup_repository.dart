@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:ohdonto/signv2/sign_in_credential_entity.dart';
-import 'package:ohdonto/signv2/sign_up_credential_entity.dart';
+import 'package:ohdonto/signv2/domain/sign_in_credential_entity.dart';
+import 'package:ohdonto/signv2/domain/sign_up_entity.dart';
 import 'package:ohdonto/signv2/sign_in_sign_up_repository.dart';
-import 'package:ohdonto/signv2/user_entity.dart';
+import 'package:ohdonto/signv2/domain/user_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageSignInSignUpRepository implements SignInSignUpRepository {
@@ -30,7 +30,7 @@ class LocalStorageSignInSignUpRepository implements SignInSignUpRepository {
   }
 
   @override
-  Future<UserEntity> signUp(SignUpCredentialEntity signUpEntity) async {
+  Future<UserEntity> signUp(SignUpEntity signUpEntity) async {
     instance = await completer.future;
     UserEntity user =
         UserEntity(id: '1', name: signUpEntity.name, email: signUpEntity.email);

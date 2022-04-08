@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:ohdonto/signv2/domain/sign_up_entity.dart';
 part 'sign_in_sign_up_controller.g.dart';
 
 class SignInSignUpController = _SignInSignUpControllerBase
@@ -58,5 +59,21 @@ abstract class _SignInSignUpControllerBase with Store {
   String? get passwordErrorMsg => !isValidPassword ? "Senha inválida" : null;
 
   @computed
-  bool get isPassEqual => password == rePassword; //password != null &&
+  bool get isPassEqual =>
+      password == rePassword; //password != null && TODO: check
+
+  @computed
+  bool get isFormValid =>
+      _name != null &&
+      password != null &&
+      email != null &&
+      isValidName &&
+      isValidEmail &&
+      isValidPassword &&
+      isPassEqual;
+
+  Future<void> signUp() async {
+    SignUpEntity signUpEntity =
+        SignUpEntity(email: email!, name: _name!, password: password!);
+  }
 }
