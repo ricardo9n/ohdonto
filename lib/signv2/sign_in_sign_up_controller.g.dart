@@ -119,6 +119,22 @@ mixin _$SignInSignUpController on _SignInSignUpControllerBase, Store {
     });
   }
 
+  final _$isVisiblePassFieldAtom =
+      Atom(name: '_SignInSignUpControllerBase.isVisiblePassField');
+
+  @override
+  bool get isVisiblePassField {
+    _$isVisiblePassFieldAtom.reportRead();
+    return super.isVisiblePassField;
+  }
+
+  @override
+  set isVisiblePassField(bool value) {
+    _$isVisiblePassFieldAtom.reportWrite(value, super.isVisiblePassField, () {
+      super.isVisiblePassField = value;
+    });
+  }
+
   final _$_SignInSignUpControllerBaseActionController =
       ActionController(name: '_SignInSignUpControllerBase');
 
@@ -167,11 +183,24 @@ mixin _$SignInSignUpController on _SignInSignUpControllerBase, Store {
   }
 
   @override
+  void changePassFieldVisibility() {
+    final _$actionInfo =
+        _$_SignInSignUpControllerBaseActionController.startAction(
+            name: '_SignInSignUpControllerBase.changePassFieldVisibility');
+    try {
+      return super.changePassFieldVisibility();
+    } finally {
+      _$_SignInSignUpControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 email: ${email},
 password: ${password},
 rePassword: ${rePassword},
+isVisiblePassField: ${isVisiblePassField},
 isValidName: ${isValidName},
 isValidEmail: ${isValidEmail},
 isValidPassword: ${isValidPassword},

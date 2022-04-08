@@ -14,6 +14,9 @@ abstract class _SignInSignUpControllerBase with Store {
   @observable
   String? rePassword;
 
+  @observable
+  bool isVisiblePassField = false;
+
   @action
   void setName(String name) {
     _name = name;
@@ -21,7 +24,6 @@ abstract class _SignInSignUpControllerBase with Store {
 
   @action
   void setEmail(String email) {
-    print("controller.setEmail($email)");
     this.email = email;
   }
 
@@ -35,13 +37,18 @@ abstract class _SignInSignUpControllerBase with Store {
     this.rePassword = rePassword;
   }
 
+  @action
+  void changePassFieldVisibility() {
+    isVisiblePassField = !isVisiblePassField;
+  }
+
   @computed
-  bool get isValidName => _name != null && _name!.length > 5;
+  bool get isValidName => _name == null || _name!.length > 3;
   @computed
   bool get isValidEmail =>
-      email != null && email!.length > 5 && email!.contains("@");
+      email == null || (email!.length > 3 && email!.contains("@"));
   @computed
-  bool get isValidPassword => password != null && password!.length > 8;
+  bool get isValidPassword => password == null || password!.length > 3;
 
   @computed
   String? get nameErrorMessage => !isValidName ? "Nome inválido" : null;

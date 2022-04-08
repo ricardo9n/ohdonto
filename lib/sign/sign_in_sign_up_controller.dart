@@ -76,9 +76,9 @@ class SignInSignUpController {
 
   Future<void> sendData1() async {
     print(_nameController.hasValue);
-    print(_emailController.hasValue);
-    print(_passController.hasValue);
-    print(_repetedPassController.hasValue);
+    // print(_emailController.hasValue);
+    // print(_passController.hasValue);
+    // print(_repetedPassController.hasValue);
   }
 
   Future<void> sendData2() async {

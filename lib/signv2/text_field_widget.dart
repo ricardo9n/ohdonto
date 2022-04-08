@@ -7,7 +7,7 @@ class TextFieldWidget extends StatefulWidget {
   final bool obscureText;
   final TextInputType keyboardType;
   //final ValueStream stream;
-  final Icon? icon;
+  final Widget? icon;
   final Function(String) callback;
   final String? errorText;
 
