@@ -126,17 +126,19 @@ class _SignUpPageState extends State<SignUpPage> {
                   padding: const EdgeInsets.all(16),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.13,
-                  child: StreamBuilder(builder: (context, snapshot) {
-                    return ElevatedButton(
-                        onPressed: controller.isFormValid ? () {} : null,
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12))),
-                        child: const Text(
-                          "Criar conta",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ));
-                  }))
+                  child: ElevatedButton(
+                      onPressed: controller.isFormValid
+                          ? () {
+                              controller.signUp2();
+                            }
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12))),
+                      child: const Text(
+                        "Criar conta",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      )))
             ]),
       );
     });

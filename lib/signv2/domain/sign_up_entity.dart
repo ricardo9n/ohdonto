@@ -13,4 +13,9 @@ class SignUpEntity {
       'password': password,
     };
   }
+
+  @override
+  String toString() {
+    return 'name: $name email: $email password: $password';
+  }
 }
