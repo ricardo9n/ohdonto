@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart' as dio;
 import 'package:http/http.dart' as http;
 import 'package:mobx/mobx.dart';
+import 'package:ohdonto/sign/user_entity.dart';
 import 'package:ohdonto/signv2/domain/sign_up_entity.dart';
 part 'sign_in_sign_up_controller.g.dart';
 
@@ -82,28 +83,28 @@ abstract class _SignInSignUpControllerBase with Store {
     SignUpEntity signUpEntity =
         SignUpEntity(email: email!, name: _name!, password: password!);
     var client = http.Client();
-    String js = json.encode(signUpEntity.toMap());
-    print('dados a enviar: $js');
-    var url1 =
-        'https://18b78dbc-7093-4474-a016-08a46285ce99.mock.pstmn.io/signup';
-    var url2 = 'http://localhost:8082/fksignup';
-    var url = Uri.parse(url2);
-    print(url);
+    String dadosParaEnviar = json.encode(signUpEntity.toMap());
+    //print('dados a enviar: $js');
+    var url = Uri.parse(
+        'https://18b78dbc-7093-4474-a016-08a46285ce99.mock.pstmn.io/signup');
+    //var url2 = 'http://localhost:8082/fksignup';
+    //print(url); //debug :-o
 
     try {
       http.Response response = await client.post(
         url,
-        body: js,
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          "Access-Control-Allow-Origin": "*"
-        },
+        body: dadosParaEnviar,
+        // headers: {
+        //   'Content-Type': 'application/json; charset=UTF-8',
+        // },
       );
-      print('recebido resp.body: '+ response.body);
-      print("response decode:" + json.decode(response.body).toString());
+      var dadosRecebidos = json.decode(response.body);
+      //print('recebido resp.body: $dadosRecebidos');
+      UserEntity userRecebido = UserEntity.fromMap(dadosRecebidos);
+      print('UserModel from http: $userRecebido');
     } on Exception catch (e) {
-      print("error2: " + e.toString());
-    }finally{
+      print("erro : " + e.toString());
+    } finally {
       client.close();
     }
   }
@@ -111,16 +112,19 @@ abstract class _SignInSignUpControllerBase with Store {
   Future<void> signUp2() async {
     SignUpEntity signUpEntity =
         SignUpEntity(email: email!, name: _name!, password: password!);
-    String js = json.encode(signUpEntity.toMap());
-    print('dados a enviar dio: $js');
-    var url1 =
-        'https://18b78dbc-7093-4474-a016-08a46285ce99.mock.pstmn.io/signup';
-    var url2 = 'http://192.168.0.207:8081/signup';
+    String dadosParaEnviar = json.encode(signUpEntity.toMap());
+    //print('dados a enviar dio: $js'); //debug :-(
+    var url =
+        ('https://18b78dbc-7093-4474-a016-08a46285ce99.mock.pstmn.io/signup');
+    //var url = 'http://localhost:8082/fksignup';
     var dioInstance = dio.Dio();
     try {
-      var response = await dioInstance.post(url1, data: js);
-      print(response.data);
-    } on Exception catch (e) {
+      var response = await dioInstance.post(url, data: dadosParaEnviar);
+      var dadosRecebidos = response.data;
+      //print('recebido resp.body: $dados_recebidos');
+      UserEntity userRecebido = UserEntity.fromMap(dadosRecebidos);
+      print('User from dio: $userRecebido');
+    } on dio.DioError catch (e) {
       print(e);
     }
   }
