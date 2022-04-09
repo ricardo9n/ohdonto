@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
 import 'package:ohdonto/signv2/sign_in_sign_up_controller.dart';
+import 'package:ohdonto/signv2/widgets/defaul_button_widget.dart';
 
 import 'text_field_widget.dart';
 
@@ -122,27 +123,56 @@ class _SignUpPageState extends State<SignUpPage> {
                   return Container();
                 }
               }),
-              Container(
-                  padding: const EdgeInsets.all(16),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.13,
-                  child: ElevatedButton(
-                      onPressed: controller.isFormValid
-                          ? () {
-                              controller.signUp1();
-                            }
-                          : null,
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12))),
-                      child: const Text(
-                        "Criar conta",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      )))
+              _buildSendButton(),
+              _buildLoginOption(),
+              _buildDividerButton(),
             ]),
       );
     });
   }
 
-  void sendDataCallback() {}
+  Widget _buildSendButton() {
+    return Container(
+        padding: const EdgeInsets.all(16),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.13,
+        child: DefaultButton(
+            title: "Criar Conta",
+            callback: controller.isFormValid ? controller.signUp1 : null));
+  }
+
+  Widget _buildLoginOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Já possui uma conta?"),
+        TextButton(onPressed: () {}, child: const Text('login'))
+      ],
+    );
+  }
+
+  Function()? sendDataCallback() {
+    return () async {
+      controller.isFormValid ? await controller.signUp1() : null;
+    };
+  }
+
+  Widget _buildDividerButton() {
+    return Row(
+      // ignore: prefer_const_literals_to_create_immutables
+      children: [
+        const Expanded(
+          child: Divider(
+            height: 10,
+          ),
+        ),
+        const Text('Ou continuar com'),
+        const Expanded(
+          child: Divider(
+            height: 10,
+          ),
+        ),
+      ],
+    );
+  }
 }
