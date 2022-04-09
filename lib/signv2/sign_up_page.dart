@@ -126,6 +126,10 @@ class _SignUpPageState extends State<SignUpPage> {
               _buildSendButton(),
               _buildLoginOption(),
               _buildDividerButton(),
+              const SizedBox(
+                height: 15,
+              ),
+              _buildSocialNetworkButtons(),
             ]),
       );
     });
@@ -137,7 +141,11 @@ class _SignUpPageState extends State<SignUpPage> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 0.13,
         child: DefaultButton(
-            title: "Criar Conta",
+            widget: const Text(
+              "Criar conta",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            color: Theme.of(context).primaryColor,
             callback: controller.isFormValid ? controller.signUp1 : null));
   }
 
@@ -159,20 +167,72 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _buildDividerButton() {
     return Row(
-      // ignore: prefer_const_literals_to_create_immutables
-      children: [
-        const Expanded(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: const [
+        Flexible(
+          flex: 1,
           child: Divider(
             height: 10,
           ),
         ),
-        const Text('Ou continuar com'),
-        const Expanded(
+        Flexible(
+            flex: 2,
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text('Ou continuar com'),
+            )),
+        Flexible(
+          flex: 1,
           child: Divider(
             height: 10,
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildSocialNetworkButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+            child: _buildSocialNetworkButton(
+                "assets/images/google.png", "Google", () {})),
+        Expanded(
+          child: _buildSocialNetworkButton(
+              "assets/images/facebook.png", "Facebook", () {}),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSocialNetworkButton(
+      String logoPath, String name, Function()? callback) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: DefaultButton.socialNetwork(
+        widget: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                logoPath,
+                width: 20,
+                height: 20,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                name,
+                style: const TextStyle(color: Colors.black),
+              ),
+            ],
+          ),
+        ),
+        callback: callback,
+      ),
     );
   }
 }
