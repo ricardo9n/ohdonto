@@ -1,9 +1,10 @@
 // ignore_for_file: avoid_print
 import 'dart:convert';
+//import 'dart:io';
 
-import 'package:dio/dio.dart';
-import 'package:mobx/mobx.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:http/http.dart' as http;
+import 'package:mobx/mobx.dart';
 import 'package:ohdonto/signv2/domain/sign_up_entity.dart';
 part 'sign_in_sign_up_controller.g.dart';
 
@@ -83,20 +84,27 @@ abstract class _SignInSignUpControllerBase with Store {
     var client = http.Client();
     String js = json.encode(signUpEntity.toMap());
     print('dados a enviar: $js');
-    var response;
+    var url1 =
+        'https://18b78dbc-7093-4474-a016-08a46285ce99.mock.pstmn.io/signup';
+    var url2 = 'http://localhost:8082/fksignup';
+    var url = Uri.parse(url2);
+    print(url);
+
     try {
-      response = await client.post(
-        Uri.parse('http://localhost:8081/signup'),
+      http.Response response = await client.post(
+        url,
         body: js,
-        headers: {'Content-type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          "Access-Control-Allow-Origin": "*"
+        },
       );
+      print('recebido resp.body: '+ response.body);
+      print("response decode:" + json.decode(response.body).toString());
     } on Exception catch (e) {
-      print(e.toString());
-    }
-    try {
-      print("response:\n" + json.decode(response.body));
-    } on Exception catch (e) {
-      print(e);
+      print("error2: " + e.toString());
+    }finally{
+      client.close();
     }
   }
 
@@ -105,9 +113,12 @@ abstract class _SignInSignUpControllerBase with Store {
         SignUpEntity(email: email!, name: _name!, password: password!);
     String js = json.encode(signUpEntity.toMap());
     print('dados a enviar dio: $js');
-    Dio dio = Dio();
+    var url1 =
+        'https://18b78dbc-7093-4474-a016-08a46285ce99.mock.pstmn.io/signup';
+    var url2 = 'http://192.168.0.207:8081/signup';
+    var dioInstance = dio.Dio();
     try {
-      var response = await dio.post('http://localhost:8081/signup', data: js);
+      var response = await dioInstance.post(url1, data: js);
       print(response.data);
     } on Exception catch (e) {
       print(e);

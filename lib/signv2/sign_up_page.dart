@@ -129,7 +129,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: ElevatedButton(
                       onPressed: controller.isFormValid
                           ? () {
-                              controller.signUp2();
+                              controller.signUp1();
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
