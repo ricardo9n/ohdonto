@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "723599635245",
+    "project_id": "ohdonto-app",
+    "storage_bucket": "ohdonto-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:723599635245:android:9fa03d38222db0d7f919a4",
+        "android_client_info": {
+          "package_name": "com.example.odonto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "723599635245-5joagoqeqm1auhues4ank64ecei43k77.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.odonto",
+            "certificate_hash": "6d739780904cbaa7ca2ef619f69ed2f751bb8e79"
+          }
+        },
+        {
+          "client_id": "723599635245-9coeeau6kg4eorrnngbp5210gclgntvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_CRbvrOQBfNuoqU-8rYfbYnb2npveT8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "723599635245-9coeeau6kg4eorrnngbp5210gclgntvn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
