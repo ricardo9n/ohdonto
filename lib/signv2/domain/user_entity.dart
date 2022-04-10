@@ -2,24 +2,25 @@ class UserEntity {
   String id;
   String name;
   String email;
+  String? photoUrl;
 
-  UserEntity({required this.id, required this.name, required this.email});
+  UserEntity(
+      {required this.id,
+      required this.name,
+      required this.email,
+      this.photoUrl});
 
-  factory UserEntity.fromMap(Map<String, dynamic> userMap) {
-    return UserEntity(
-        email: userMap['email'], id: userMap['id'], name: userMap['name']);
-  }
+  // Map<String, dynamic> toMap() {
+  //   return {
+  //     'id': id,
+  //     'name': name,
+  //     'email': email,
+  //     'photoUrl': photoUrl,
+  //   };
+  // }
 
   @override
   String toString() {
     return 'UserEntity > id: $id name:$name email:$email';
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-    };
   }
 }

@@ -85,8 +85,6 @@ class _MainPagePageState extends State<MainPage> {
                   )));
             }
           }
-          //appointmentList.map( ); //TODO continuar!
-
           return buildCard(widgetList);
         });
   }

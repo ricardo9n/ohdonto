@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
 import 'package:ohdonto/signv2/sign_in_sign_up_controller.dart';
 import 'package:ohdonto/signv2/widgets/defaul_button_widget.dart';
@@ -16,15 +16,11 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   late SignInSignUpController controller;
-  late GoogleSignIn _googleSignIn;
 
   @override
   void initState() {
     super.initState();
     controller = SignInSignUpController();
-    _googleSignIn = GoogleSignIn(
-      scopes: ['email'],
-    );
   }
 
   @override
@@ -151,8 +147,14 @@ class _SignUpPageState extends State<SignUpPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             color: Theme.of(context).primaryColor,
-            callback: controller.isFormValid ? controller.signUp1 : null));
+            callback: controller.isFormValid ? controller.signUp : null));
   }
+
+  // Function()? sendDataCallback() {
+  //   return () async {
+  //     controller.isFormValid ? await controller.signUp() : null;
+  //   };
+  // }
 
   Widget _buildLoginOption() {
     return Row(
@@ -162,12 +164,6 @@ class _SignUpPageState extends State<SignUpPage> {
         TextButton(onPressed: () {}, child: const Text('login'))
       ],
     );
-  }
-
-  Function()? sendDataCallback() {
-    return () async {
-      controller.isFormValid ? await controller.signUp1() : null;
-    };
   }
 
   Widget _buildDividerButton() {
@@ -202,18 +198,13 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         Expanded(
             child: _buildSocialNetworkButton(
-                "assets/images/google.png", "Google", callbackGoogle)),
+                "assets/images/google.png", "Google", () {})),
         Expanded(
           child: _buildSocialNetworkButton(
               "assets/images/facebook.png", "Facebook", () {}),
         ),
       ],
     );
-  }
-
-  void callbackGoogle() async {
-    GoogleSignInAccount? account = await _googleSignIn.signIn();
-    print('${account?.displayName}');
   }
 
   Widget _buildSocialNetworkButton(

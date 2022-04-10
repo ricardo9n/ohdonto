@@ -72,13 +72,8 @@ class SignInSignUpController {
     return (_passController.value == _repetedPassController.value);
   }
 
-  //password visibility TODO
-
   Future<void> sendData1() async {
     print(_nameController.hasValue);
-    // print(_emailController.hasValue);
-    // print(_passController.hasValue);
-    // print(_repetedPassController.hasValue);
   }
 
   Future<void> sendData2() async {
