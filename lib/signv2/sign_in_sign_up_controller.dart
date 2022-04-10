@@ -1,12 +1,18 @@
 import 'package:mobx/mobx.dart';
+import 'package:ohdonto/signv2/datasource/signup_datasource.dart';
+
 import 'package:ohdonto/signv2/domain/sign_up_entity.dart';
+import 'package:ohdonto/signv2/domain/user_entity.dart';
+import 'package:ohdonto/signv2/repositories/signin_signup_repository.dart';
+import 'package:ohdonto/signv2/repositories/signin_signup_repository_impl.dart';
+
 part 'sign_in_sign_up_controller.g.dart';
 
 class SignInSignUpController = _SignInSignUpControllerBase
     with _$SignInSignUpController;
 
 abstract class _SignInSignUpControllerBase with Store {
-  //late SignInSignUpRepository repository;
+  late SignInSignUpRepository repository;
 
   @observable
   String? _name;
@@ -73,8 +79,22 @@ abstract class _SignInSignUpControllerBase with Store {
       isValidPassword &&
       isPassEqual;
 
+  void setSignUpStrategy(SignUpDataSource dataSource1) {
+    repository = SigninSignupRepositoryImpl(dataSource: dataSource1);
+  }
+
   Future<void> signUp() async {
-    SignUpEntity signUpEntity =
-        SignUpEntity(email: email!, name: _name!, password: password!);
+    SignUpEntity signUpEntity1 = SignUpEntity(
+      email: email!,
+      name: _name!,
+      password: password!,
+    );
+    UserEntity user = await repository.signUp(entity: signUpEntity1);
+    print(user);
+  }
+
+  Future<void> googleSignUp() async {
+    UserEntity user = await repository.signUp();
+    print(user);
   }
 }

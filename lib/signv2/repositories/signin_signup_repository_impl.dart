@@ -10,7 +10,7 @@ class SigninSignupRepositoryImpl implements SignInSignUpRepository {
   SigninSignupRepositoryImpl({required this.dataSource});
 
   @override
-  Future<UserEntity> signUp(SignUpEntity? entity) async {
+  Future<UserEntity> signUp({SignUpEntity? entity}) async {
     UserModel userModel = await dataSource.signUp(entity!);
     return UserEntity(
         id: userModel.id,

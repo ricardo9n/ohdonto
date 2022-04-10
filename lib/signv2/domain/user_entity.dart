@@ -21,6 +21,6 @@ class UserEntity {
 
   @override
   String toString() {
-    return 'UserEntity > id: $id name:$name email:$email';
+    return 'UserEntity > id: $id nome:$name email:$email foto:$photoUrl';
   }
 }

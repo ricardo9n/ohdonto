@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
+import 'package:ohdonto/signv2/datasource/google_signup_datasource.dart';
+import 'package:ohdonto/signv2/datasource/rest_http_signup_datasource.dart';
 import 'package:ohdonto/signv2/sign_in_sign_up_controller.dart';
 import 'package:ohdonto/signv2/widgets/defaul_button_widget.dart';
 
@@ -147,7 +149,12 @@ class _SignUpPageState extends State<SignUpPage> {
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             color: Theme.of(context).primaryColor,
-            callback: controller.isFormValid ? controller.signUp : null));
+            callback: controller.isFormValid
+                ? () {
+                    controller.setSignUpStrategy(RestHttpSignupDataSource());
+                    controller.signUp();
+                  }
+                : null));
   }
 
   // Function()? sendDataCallback() {
@@ -198,7 +205,10 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         Expanded(
             child: _buildSocialNetworkButton(
-                "assets/images/google.png", "Google", () {})),
+                "assets/images/google.png", "Google", () async {
+          controller.setSignUpStrategy(GoogleSignUpDataSource());
+          controller.googleSignUp();
+        })),
         Expanded(
           child: _buildSocialNetworkButton(
               "assets/images/facebook.png", "Facebook", () {}),
