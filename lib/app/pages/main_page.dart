@@ -51,8 +51,7 @@ class _MainPagePageState extends State<MainPage> {
               label: 'Calendário', icon: Icon(Icons.calendar_month)),
         ],
         onTap: (index) {
-          // ignore: avoid_print
-          print('Indice atual: $index'); //TODO remove
+          // print('Indice atual: $index');
           setState(() {
             ourCurrentIndex = index;
           });
@@ -86,8 +85,6 @@ class _MainPagePageState extends State<MainPage> {
                   )));
             }
           }
-          //appointmentList.map( ); //TODO continuar!
-
           return buildCard(widgetList);
         });
   }

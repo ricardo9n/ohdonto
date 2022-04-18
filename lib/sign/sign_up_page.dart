@@ -41,7 +41,7 @@ class _SignUpPageState extends State<SignUpPage> {
     ));
   }
 
-  Widget TextTitle(String name) {
+  Widget textTitle(String name) {
     return Text(
       name,
       style: const TextStyle(fontSize: 40),
@@ -51,7 +51,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _buildCreateAccountText() {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [TextTitle("Criar"), TextTitle("Conta")]);
+        children: [textTitle("Criar"), textTitle("Conta")]);
   }
 
   void voltar() {
@@ -106,7 +106,7 @@ class _SignUpPageState extends State<SignUpPage> {
               return Container();
             }
           }),
-      Container(
+      SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,
           height: MediaQuery.of(context).size.height * 0.05,
           child: StreamBuilder(

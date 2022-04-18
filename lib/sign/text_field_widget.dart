@@ -10,7 +10,7 @@ class TextFieldWidget extends StatefulWidget {
   final Icon? icon;
   final Function(String) callback;
 
-  TextFieldWidget(
+  const TextFieldWidget(
       {Key? key,
       required this.text,
       required this.hint,

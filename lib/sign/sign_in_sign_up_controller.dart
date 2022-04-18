@@ -1,5 +1,4 @@
 import 'package:ohdonto/sign/local_storage_signin_signup_repository.dart';
-import 'package:ohdonto/sign/sign_in_credential_entity.dart';
 import 'package:ohdonto/sign/sign_in_sign_up_repository.dart';
 import 'package:ohdonto/sign/sign_up_credential_entity.dart';
 import 'package:ohdonto/sign/user_entity.dart';
@@ -18,6 +17,16 @@ class SignInSignUpController {
 
   ValueStream<String> get nameStream => _nameController.stream;
   Function(String) get addName => _nameController.sink.add;
+
+  bool get isValidName => _nameController.value.length > 5;
+  bool get isValidEmail =>
+      _emailController.value.length > 5 && _emailController.value.contains("@");
+
+  bool get isValidPasword => _passController.value.length >= 8;
+
+  String? get nameErrorMessage => !isValidName ? 'Nome Inválido' : null;
+  String? get emailErrorMessage => !isValidName ? 'Email Inválido' : null;
+  String? get passErrorMessage => !isValidName ? 'Nome Inválido' : null;
 
   ValueStream<String> get emailStream => _emailController.stream;
   Function(String) get addEmail => _emailController.sink.add;
@@ -63,13 +72,8 @@ class SignInSignUpController {
     return (_passController.value == _repetedPassController.value);
   }
 
-  //password visibility TODO
-
   Future<void> sendData1() async {
     print(_nameController.hasValue);
-    print(_emailController.hasValue);
-    print(_passController.hasValue);
-    print(_repetedPassController.hasValue);
   }
 
   Future<void> sendData2() async {

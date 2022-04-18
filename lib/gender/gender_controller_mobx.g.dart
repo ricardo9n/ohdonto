@@ -28,17 +28,6 @@ mixin _$GenderController on _GenderControllerBase, Store {
       ActionController(name: '_GenderControllerBase');
 
   @override
-  Genders? gender() {
-    final _$actionInfo = _$_GenderControllerBaseActionController.startAction(
-        name: '_GenderControllerBase.gender');
-    try {
-      return super.gender();
-    } finally {
-      _$_GenderControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void setGender(dynamic g) {
     final _$actionInfo = _$_GenderControllerBaseActionController.startAction(
         name: '_GenderControllerBase.setGender');

@@ -96,19 +96,19 @@ class OnboardingPageContent extends StatelessWidget {
     );
   }
 
-  Widget _buildBackButtonX() {
-    return InkWell(
-      onTap: () {
-        pageController.previousPage(
-            duration: const Duration(milliseconds: 300), curve: Curves.linear);
-      },
-      child: Container(
-        margin: const EdgeInsets.all(15),
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-        ),
-        child: const Icon(Icons.arrow_back),
-      ),
-    );
-  }
+  // Widget _buildBackButtonX() {
+  //   return InkWell(
+  //     onTap: () {
+  //       pageController.previousPage(
+  //           duration: const Duration(milliseconds: 300), curve: Curves.linear);
+  //     },
+  //     child: Container(
+  //       margin: const EdgeInsets.all(15),
+  //       decoration: const BoxDecoration(
+  //         shape: BoxShape.circle,
+  //       ),
+  //       child: const Icon(Icons.arrow_back),
+  //     ),
+  //   );
+  // }
 }
