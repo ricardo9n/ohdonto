@@ -26,7 +26,6 @@ abstract class _FormBasedSignupVerificationControllerBase with Store {
   @action
   void setField4(String field4) => this.field4 = field4;
 
-  @computed
   Either<String, bool> verify() {
     FormBasedSignUpVerificationUsecase uc =
         FormBasedSignUpVerificationUsecase();
