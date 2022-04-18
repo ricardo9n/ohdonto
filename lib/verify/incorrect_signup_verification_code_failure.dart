@@ -1,0 +1,1 @@
+class IncorrectSignUpVerificationCodeFailure implements Exception {}
