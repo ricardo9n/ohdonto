@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ohdonto/signv2/sign_in_sign_verifier_page.dart';
-import 'package:ohdonto/signv2/sign_up_page.dart';
 
-import 'teste_page.dart';
+import 'signin_signup_verify/sign_in_sign_verifier_page.dart';
 
 void main() {
   runApp(const OhDontoApp());

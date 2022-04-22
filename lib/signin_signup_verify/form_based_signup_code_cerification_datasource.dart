@@ -1,4 +1,4 @@
-import 'package:ohdonto/verify/signup_code_verification_datasource.dart'
+import 'package:ohdonto/signin_signup_verify/signup_code_verification_datasource.dart'
     show SignupCodeVerificationDatasource;
 
 import 'incorrect_signup_verification_code_failure.dart'

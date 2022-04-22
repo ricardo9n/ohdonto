@@ -1,6 +1,6 @@
 import 'package:either_dart/either.dart';
 
-import 'package:ohdonto/verify/signup_verification_usecase.dart';
+import 'package:ohdonto/signin_signup_verify/signup_verification_usecase.dart';
 
 class FormBasedSignUpVerificationUsecase implements SignUpVerificationUsecase {
   @override
