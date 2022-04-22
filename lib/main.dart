@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ohdonto/signv2/sign_in_sign_verifier_page.dart';
 import 'package:ohdonto/signv2/sign_up_page.dart';
+
+import 'teste_page.dart';
 
 void main() {
   runApp(const OhDontoApp());
@@ -21,6 +24,7 @@ class OhDontoApp extends StatelessWidget {
         //home: OnBoardingScreenWidget(),
         //home: //OnboardingPageContent(imagePath: '/assets/images/onboarding-dentist-front.png',"Pagina","Descricao"),
         //home: const StreamPageMobx()
-        home: const SignUpPage());
+        //home: const TestePage());
+        home: const SignInSignUpVerifierPage(email: "rrgnf@ifal.edu.br"));
   }
 }

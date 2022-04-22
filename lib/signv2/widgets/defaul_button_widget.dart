@@ -26,8 +26,15 @@ class DefaultButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             primary: color,
             textStyle: const TextStyle(color: Colors.black),
+            minimumSize: sizeOf(context),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12))),
+              borderRadius: BorderRadius.circular(12),
+            )),
         child: widget);
+  }
+
+  Size sizeOf(context) {
+    return Size(MediaQuery.of(context).size.width * .85,
+        MediaQuery.of(context).size.width * .15);
   }
 }
