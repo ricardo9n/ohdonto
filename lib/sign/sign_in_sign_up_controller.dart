@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:ohdonto/sign/local_storage_signin_signup_repository.dart';
 import 'package:ohdonto/sign/sign_in_sign_up_repository.dart';
 import 'package:ohdonto/sign/sign_up_credential_entity.dart';
@@ -73,7 +74,7 @@ class SignInSignUpController {
   }
 
   Future<void> sendData1() async {
-    print(_nameController.hasValue);
+    debugPrint(_nameController.hasValue.toString());
   }
 
   Future<void> sendData2() async {
@@ -85,15 +86,15 @@ class SignInSignUpController {
           name: _nameController.value,
           password: _passController.value);
       UserEntity user = await repository.signUp(signUpCredentialEntity);
-      print('user entity $user');
+      debugPrint('user entity $user');
     } else {
-      print('sendData > no datah');
+      debugPrint('sendData > no datah');
     }
   }
 
   Future<void> sendData3() async {
     UserEntity user = await repository.signIn(null);
-    print('sendData > sign in > $user');
+    debugPrint('sendData > sign in > $user');
   }
 
   void dispose() {

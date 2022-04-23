@@ -1,17 +1,20 @@
-import 'package:ohdonto/signin_signup_verify/signup_code_verification_datasource.dart'
+import 'package:dartz/dartz.dart';
+import 'signup_code_verification_datasource.dart'
     show SignupCodeVerificationDatasource;
+import 'package:ohdonto/signin_signup_verify/verification_usecase.dart'
+    show VerificationCodeParam;
 
-import 'incorrect_signup_verification_code_failure.dart'
-    show IncorrectSignUpVerificationCodeFailure;
+import '../core/failure.dart' show Failure, VerificationCodeNotMatchFailure;
 
 class FormBasedSignupCodeVerificationDatasource
     implements SignupCodeVerificationDatasource {
   @override
-  bool verifySignUpCode(String code) {
-    if (code.length > 10) {
-      return true;
-    } else {
-      throw IncorrectSignUpVerificationCodeFailure();
+  Future<Either<Failure, bool>> verifySignUpCode(
+      VerificationCodeParam param) async {
+    if (param.code.length == 4) {
+      return right(true);
     }
+    return left(
+        VerificationCodeNotMatchFailure(errorMessage: "Codigo invalido"));
   }
 }

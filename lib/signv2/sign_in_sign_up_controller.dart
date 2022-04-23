@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/signv2/datasource/signup_datasource.dart';
 
@@ -90,11 +91,11 @@ abstract class _SignInSignUpControllerBase with Store {
       password: password!,
     );
     UserEntity user = await repository.signUp(entity: signUpEntity1);
-    print(user);
+    debugPrint(user.toString());
   }
 
   Future<void> googleSignUp() async {
     UserEntity user = await repository.signUp();
-    print(user);
+    debugPrint(user.toString());
   }
 }

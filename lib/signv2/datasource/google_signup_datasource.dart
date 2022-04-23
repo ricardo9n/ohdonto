@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:ohdonto/signv2/datasource/signup_datasource.dart';
@@ -16,7 +17,7 @@ class GoogleSignUpDataSource implements SignUpDataSource {
   @override
   Future<UserModel> signUp(SignUpEntity entity) async {
     GoogleSignInAccount? account = await _googleSignIn.signIn();
-    print('${account?.displayName}');
+    debugPrint('${account?.displayName}');
     return UserModel(
         id: account!.id,
         name: account.displayName!,

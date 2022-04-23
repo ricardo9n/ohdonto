@@ -162,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.2"
+  dartz:
+    dependency: "direct main"
+    description:
+      name: dartz
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.10.1"
   dio:
     dependency: "direct main"
     description:
@@ -169,13 +176,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
-  either_dart:
-    dependency: "direct main"
-    description:
-      name: either_dart
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   fake_async:
     dependency: transitive
     description:

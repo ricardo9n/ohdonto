@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'signin_signup_verify/sign_in_sign_verifier_page.dart';
+import 'signin_signup_verify/signup_verifier_page.dart';
 
 void main() {
   runApp(const OhDontoApp());
@@ -23,6 +23,6 @@ class OhDontoApp extends StatelessWidget {
         //home: //OnboardingPageContent(imagePath: '/assets/images/onboarding-dentist-front.png',"Pagina","Descricao"),
         //home: const StreamPageMobx()
         //home: const TestePage());
-        home: const SignInSignUpVerifierPage(email: "rrgnf@ifal.edu.br"));
+        home: const SignUpVerifierPage(email: "rrgnf@ifal.edu.br"));
   }
 }
