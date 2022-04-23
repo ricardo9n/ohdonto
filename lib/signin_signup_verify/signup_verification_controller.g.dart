@@ -78,6 +78,22 @@ mixin _$SignUpVerificationController
     });
   }
 
+  final _$errorMessageAtom =
+      Atom(name: '_SignUpVerificationControllerBase.errorMessage');
+
+  @override
+  String? get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String? value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
+
   final _$_SignUpVerificationControllerBaseActionController =
       ActionController(name: '_SignUpVerificationControllerBase');
 
@@ -136,6 +152,7 @@ g1: ${g1},
 g2: ${g2},
 g3: ${g3},
 g4: ${g4},
+errorMessage: ${errorMessage},
 isFullFilled: ${isFullFilled}
     ''';
   }

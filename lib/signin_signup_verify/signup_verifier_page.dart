@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:ohdonto/signin_signup_verify/verification_usecase.dart';
-import 'package:ohdonto/signin_signup_verify/signup_verification_usecase.dart';
 import 'package:ohdonto/signv2/widgets/defaul_button_widget.dart';
 
 import 'form_based_signup_code_cerification_datasource.dart';
@@ -18,7 +16,6 @@ class SignUpVerifierPage extends StatefulWidget {
 
 class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
   late SignUpVerificationController controlador;
-  late SignUpVerificationUsecase usecase;
 
   late FocusNode b1, b2, b3, b4;
 
@@ -37,7 +34,6 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
     controlador = SignUpVerificationController();
     controlador
         .setVerificationStrategy(FormBasedSignupCodeVerificationDatasource());
-    controlador.setUseCase(FormBasedSignUpVerificationUsecase());
     b1 = FocusNode();
     b2 = FocusNode();
     b3 = FocusNode();
@@ -78,10 +74,6 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
                               const SizedBox(height: 24),
                               _buildBotaoEnviarCodigo()
                             ])))));
-  }
-
-  void fazNada() {
-    debugPrint("faz nada");
   }
 
   Widget _buildBotaoEnviarCodigo() {

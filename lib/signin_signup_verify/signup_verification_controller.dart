@@ -1,7 +1,6 @@
 //import 'package:either_dart/either.dart' show Either;
 
 import 'package:mobx/mobx.dart';
-import 'package:ohdonto/core/failure.dart';
 import 'package:ohdonto/signin_signup_verify/form_based_verification_usecase.dart';
 import 'package:ohdonto/signin_signup_verify/verification_usecase.dart';
 
@@ -51,7 +50,8 @@ abstract class _SignUpVerificationControllerBase with Store {
 
   void verify() async {
     String userCode = g1! + g2! + g3! + g4!;
-    VerificationUsecase usecase = FormBasedVerificationUsecase();
+    VerificationUsecase usecase =
+        FormBasedVerificationUsecase(repository: repository);
     VerificationCodeParam param =
         VerificationCodeParam(code: userCode, email: "email");
     var response = await usecase(param);
@@ -63,6 +63,5 @@ abstract class _SignUpVerificationControllerBase with Store {
 
   void setVerificationStrategy(SignupCodeVerificationDatasource datasource) {
     repository = FormBasedSignUpVerificationRepository(datasource);
-    usecase.setStrategy(repository);
   }
 }
