@@ -18,79 +18,113 @@ mixin _$SignUpVerificationController
               name: '_SignUpVerificationControllerBase.isFullFilled'))
           .value;
 
-  final _$g1Atom = Atom(name: '_SignUpVerificationControllerBase.g1');
+  final _$field1Atom = Atom(name: '_SignUpVerificationControllerBase.field1');
 
   @override
-  String? get g1 {
-    _$g1Atom.reportRead();
-    return super.g1;
+  String? get field1 {
+    _$field1Atom.reportRead();
+    return super.field1;
   }
 
   @override
-  set g1(String? value) {
-    _$g1Atom.reportWrite(value, super.g1, () {
-      super.g1 = value;
+  set field1(String? value) {
+    _$field1Atom.reportWrite(value, super.field1, () {
+      super.field1 = value;
     });
   }
 
-  final _$g2Atom = Atom(name: '_SignUpVerificationControllerBase.g2');
+  final _$field2Atom = Atom(name: '_SignUpVerificationControllerBase.field2');
 
   @override
-  String? get g2 {
-    _$g2Atom.reportRead();
-    return super.g2;
+  String? get field2 {
+    _$field2Atom.reportRead();
+    return super.field2;
   }
 
   @override
-  set g2(String? value) {
-    _$g2Atom.reportWrite(value, super.g2, () {
-      super.g2 = value;
+  set field2(String? value) {
+    _$field2Atom.reportWrite(value, super.field2, () {
+      super.field2 = value;
     });
   }
 
-  final _$g3Atom = Atom(name: '_SignUpVerificationControllerBase.g3');
+  final _$field3Atom = Atom(name: '_SignUpVerificationControllerBase.field3');
 
   @override
-  String? get g3 {
-    _$g3Atom.reportRead();
-    return super.g3;
+  String? get field3 {
+    _$field3Atom.reportRead();
+    return super.field3;
   }
 
   @override
-  set g3(String? value) {
-    _$g3Atom.reportWrite(value, super.g3, () {
-      super.g3 = value;
+  set field3(String? value) {
+    _$field3Atom.reportWrite(value, super.field3, () {
+      super.field3 = value;
     });
   }
 
-  final _$g4Atom = Atom(name: '_SignUpVerificationControllerBase.g4');
+  final _$field4Atom = Atom(name: '_SignUpVerificationControllerBase.field4');
 
   @override
-  String? get g4 {
-    _$g4Atom.reportRead();
-    return super.g4;
+  String? get field4 {
+    _$field4Atom.reportRead();
+    return super.field4;
   }
 
   @override
-  set g4(String? value) {
-    _$g4Atom.reportWrite(value, super.g4, () {
-      super.g4 = value;
+  set field4(String? value) {
+    _$field4Atom.reportWrite(value, super.field4, () {
+      super.field4 = value;
     });
   }
 
-  final _$errorMessageAtom =
-      Atom(name: '_SignUpVerificationControllerBase.errorMessage');
+  final _$verificationCodeErrorMessageAtom = Atom(
+      name: '_SignUpVerificationControllerBase.verificationCodeErrorMessage');
 
   @override
-  String? get errorMessage {
-    _$errorMessageAtom.reportRead();
-    return super.errorMessage;
+  String? get verificationCodeErrorMessage {
+    _$verificationCodeErrorMessageAtom.reportRead();
+    return super.verificationCodeErrorMessage;
   }
 
   @override
-  set errorMessage(String? value) {
-    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
-      super.errorMessage = value;
+  set verificationCodeErrorMessage(String? value) {
+    _$verificationCodeErrorMessageAtom
+        .reportWrite(value, super.verificationCodeErrorMessage, () {
+      super.verificationCodeErrorMessage = value;
+    });
+  }
+
+  final _$verificationCodeObsAtom =
+      Atom(name: '_SignUpVerificationControllerBase.verificationCodeObs');
+
+  @override
+  Either<Failure, bool>? get verificationCodeObs {
+    _$verificationCodeObsAtom.reportRead();
+    return super.verificationCodeObs;
+  }
+
+  @override
+  set verificationCodeObs(Either<Failure, bool>? value) {
+    _$verificationCodeObsAtom.reportWrite(value, super.verificationCodeObs, () {
+      super.verificationCodeObs = value;
+    });
+  }
+
+  final _$sendVerificationCodeObsAtom =
+      Atom(name: '_SignUpVerificationControllerBase.sendVerificationCodeObs');
+
+  @override
+  ObservableFuture<Either<Failure, bool>>? get sendVerificationCodeObs {
+    _$sendVerificationCodeObsAtom.reportRead();
+    return super.sendVerificationCodeObs;
+  }
+
+  @override
+  set sendVerificationCodeObs(ObservableFuture<Either<Failure, bool>>? value) {
+    _$sendVerificationCodeObsAtom
+        .reportWrite(value, super.sendVerificationCodeObs, () {
+      super.sendVerificationCodeObs = value;
     });
   }
 
@@ -98,11 +132,11 @@ mixin _$SignUpVerificationController
       ActionController(name: '_SignUpVerificationControllerBase');
 
   @override
-  void setField1(String field1) {
+  void setField1(String field) {
     final _$actionInfo = _$_SignUpVerificationControllerBaseActionController
         .startAction(name: '_SignUpVerificationControllerBase.setField1');
     try {
-      return super.setField1(field1);
+      return super.setField1(field);
     } finally {
       _$_SignUpVerificationControllerBaseActionController
           .endAction(_$actionInfo);
@@ -110,11 +144,11 @@ mixin _$SignUpVerificationController
   }
 
   @override
-  void setField2(String field2) {
+  void setField2(String field) {
     final _$actionInfo = _$_SignUpVerificationControllerBaseActionController
         .startAction(name: '_SignUpVerificationControllerBase.setField2');
     try {
-      return super.setField2(field2);
+      return super.setField2(field);
     } finally {
       _$_SignUpVerificationControllerBaseActionController
           .endAction(_$actionInfo);
@@ -122,11 +156,11 @@ mixin _$SignUpVerificationController
   }
 
   @override
-  void setField3(String field3) {
+  void setField3(String field) {
     final _$actionInfo = _$_SignUpVerificationControllerBaseActionController
         .startAction(name: '_SignUpVerificationControllerBase.setField3');
     try {
-      return super.setField3(field3);
+      return super.setField3(field);
     } finally {
       _$_SignUpVerificationControllerBaseActionController
           .endAction(_$actionInfo);
@@ -134,11 +168,11 @@ mixin _$SignUpVerificationController
   }
 
   @override
-  void setField4(String field4) {
+  void setField4(String field) {
     final _$actionInfo = _$_SignUpVerificationControllerBaseActionController
         .startAction(name: '_SignUpVerificationControllerBase.setField4');
     try {
-      return super.setField4(field4);
+      return super.setField4(field);
     } finally {
       _$_SignUpVerificationControllerBaseActionController
           .endAction(_$actionInfo);
@@ -148,11 +182,13 @@ mixin _$SignUpVerificationController
   @override
   String toString() {
     return '''
-g1: ${g1},
-g2: ${g2},
-g3: ${g3},
-g4: ${g4},
-errorMessage: ${errorMessage},
+field1: ${field1},
+field2: ${field2},
+field3: ${field3},
+field4: ${field4},
+verificationCodeErrorMessage: ${verificationCodeErrorMessage},
+verificationCodeObs: ${verificationCodeObs},
+sendVerificationCodeObs: ${sendVerificationCodeObs},
 isFullFilled: ${isFullFilled}
     ''';
   }

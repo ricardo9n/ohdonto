@@ -1,9 +1,12 @@
 //import 'package:either_dart/either.dart' show Either;
 
+import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/signin_signup_verify/form_based_verification_usecase.dart';
 import 'package:ohdonto/signin_signup_verify/verification_usecase.dart';
 
+import '../core/failure.dart';
 import 'form_based_signup_verification_repository.dart';
 import 'signup_code_verification_datasource.dart';
 import 'signup_verification_repository.dart';
@@ -16,52 +19,71 @@ class SignUpVerificationController = _SignUpVerificationControllerBase
 abstract class _SignUpVerificationControllerBase with Store {
   late SignUpVerificationRepository repository;
 
-  @observable
-  String? g1;
-  @observable
-  String? g2;
-  @observable
-  String? g3;
-  @observable
-  String? g4;
+  String? _email;
 
   @observable
-  String? errorMessage;
+  String? field1;
+  @observable
+  String? field2;
+  @observable
+  String? field3;
+  @observable
+  String? field4;
+
+  @observable
+  String? verificationCodeErrorMessage;
+
+  @observable
+  Either<Failure, bool>? verificationCodeObs;
+
+  @observable
+  bool? verificationCodeResultValidation;
+
+  @observable
+  ObservableFuture<Either<Failure, bool>>? sendVerificationCodeObs;
 
   @action
-  void setField1(String field1) => g1 = field1;
+  void setField1(String field) => field1 = field;
   @action
-  void setField2(String field2) => g2 = field2;
+  void setField2(String field) => field2 = field;
   @action
-  void setField3(String field3) => g3 = field3;
+  void setField3(String field) => field3 = field;
   @action
-  void setField4(String field4) => g4 = field4;
+  void setField4(String field) => field4 = field;
+
+  set email(email) => _email = email;
 
   @computed
   bool get isFullFilled =>
-      g1 != null &&
-      g1!.isNotEmpty &&
-      g2 != null &&
-      g2!.isNotEmpty &&
-      g3 != null &&
-      g3!.isNotEmpty &&
-      g4 != null &&
-      g4!.isNotEmpty;
+      field1 != null &&
+      field1!.isNotEmpty &&
+      field2 != null &&
+      field2!.isNotEmpty &&
+      field3 != null &&
+      field3!.isNotEmpty &&
+      field4 != null &&
+      field4!.isNotEmpty;
 
-  void verify() async {
-    String userCode = g1! + g2! + g3! + g4!;
+  void sendVerificationCode() async {
+    String userCode = "$field1$field2$field3$field4";
     VerificationUsecase usecase =
         FormBasedVerificationUsecase(repository: repository);
     VerificationCodeParam param =
-        VerificationCodeParam(code: userCode, email: "email");
-    var response = await usecase(param);
-    response.fold(
-      (failure) => errorMessage = failure.errorMessage,
-      (result) => true,
-    );
+        VerificationCodeParam(code: userCode, email: _email!);
+
+    sendVerificationCodeObs = ObservableFuture(usecase(param));
+    //debugPrint("verify> $userCode -> $sendVerificationCodeObs");
+    verificationCodeObs = await sendVerificationCodeObs;
   }
 
-  void setVerificationStrategy(SignupCodeVerificationDatasource datasource) {
+  @action
+  void setErrorMessage() {
+    verificationCodeObs?.fold(
+        (failure) => verificationCodeErrorMessage = failure.toString(),
+        (result) => verificationCodeResultValidation = result);
+  }
+
+  void setRepository(SignupCodeVerificationDatasource datasource) {
     repository = FormBasedSignUpVerificationRepository(datasource);
   }
 }
