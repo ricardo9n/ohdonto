@@ -15,7 +15,7 @@ class RestDioSignupDataSource
     implements SignUpDataSource, SignupCodeVerificationDatasource {
   late dio.Dio client;
   //local server
-  String urlBaseLocal = 'http://localhost:8082';
+  String urlBaseLocal = 'http://localhost:3000';
   //postman server
   String urlBase = 'https://18b78dbc-7093-4474-a016-08a46285ce99.mock.pstmn.io';
 
@@ -37,6 +37,19 @@ class RestDioSignupDataSource
 
   Future<Either<Failure, bool>> verifySignUpCode(VerificationCodeParam param) {
     return _verifySignUpCodeServerMock(param);
+  }
+
+  Future<Either<Failure, bool>> _verifySignUpCodeServer(
+      VerificationCodeParam param) async {
+    String url = '$urlBase/signup/verify';
+    debugPrint('rest data source...'); //todo
+    try {
+      await client.post(url, data: {'code': param.code, 'email': param.email});
+      return right(true);
+    } on dio.DioError catch (e) {
+      String erroMessage = "erro no servidor: ${e.response?.data['message']}";
+      return left(VerificationCodeNotMatchFailure(errorMessage: erroMessage));
+    }
   }
 
   Future<Either<Failure, bool>> _verifySignUpCodeServerMock(
