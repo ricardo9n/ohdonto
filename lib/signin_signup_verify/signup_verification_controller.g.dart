@@ -78,23 +78,6 @@ mixin _$SignUpVerificationController
     });
   }
 
-  final _$verificationCodeErrorMessageAtom = Atom(
-      name: '_SignUpVerificationControllerBase.verificationCodeErrorMessage');
-
-  @override
-  String? get verificationCodeErrorMessage {
-    _$verificationCodeErrorMessageAtom.reportRead();
-    return super.verificationCodeErrorMessage;
-  }
-
-  @override
-  set verificationCodeErrorMessage(String? value) {
-    _$verificationCodeErrorMessageAtom
-        .reportWrite(value, super.verificationCodeErrorMessage, () {
-      super.verificationCodeErrorMessage = value;
-    });
-  }
-
   final _$verificationCodeObsAtom =
       Atom(name: '_SignUpVerificationControllerBase.verificationCodeObs');
 
@@ -186,7 +169,6 @@ field1: ${field1},
 field2: ${field2},
 field3: ${field3},
 field4: ${field4},
-verificationCodeErrorMessage: ${verificationCodeErrorMessage},
 verificationCodeObs: ${verificationCodeObs},
 sendVerificationCodeObs: ${sendVerificationCodeObs},
 isFullFilled: ${isFullFilled}

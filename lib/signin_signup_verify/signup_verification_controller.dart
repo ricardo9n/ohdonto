@@ -1,7 +1,6 @@
 //import 'package:either_dart/either.dart' show Either;
 
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/signin_signup_verify/form_based_verification_usecase.dart';
 import 'package:ohdonto/signin_signup_verify/verification_usecase.dart';
@@ -30,14 +29,14 @@ abstract class _SignUpVerificationControllerBase with Store {
   @observable
   String? field4;
 
-  @observable
-  String? verificationCodeErrorMessage;
+  // @observable
+  // String? verificationCodeErrorMessage;
 
   @observable
   Either<Failure, bool>? verificationCodeObs;
 
-  @observable
-  bool? verificationCodeResultValidation;
+  // @observable
+  // bool? verificationCodeResultValidation;
 
   @observable
   ObservableFuture<Either<Failure, bool>>? sendVerificationCodeObs;
@@ -76,12 +75,12 @@ abstract class _SignUpVerificationControllerBase with Store {
     verificationCodeObs = await sendVerificationCodeObs;
   }
 
-  @action
-  void setErrorMessage() {
-    verificationCodeObs?.fold(
-        (failure) => verificationCodeErrorMessage = failure.toString(),
-        (result) => verificationCodeResultValidation = result);
-  }
+  // @action
+  // void setErrorMessage() {
+  //   verificationCodeObs?.fold(
+  //       (failure) => verificationCodeErrorMessage = failure.toString(),
+  //       (result) => verificationCodeResultValidation = result);
+  // }
 
   void setRepository(SignupCodeVerificationDatasource datasource) {
     repository = FormBasedSignUpVerificationRepository(datasource);

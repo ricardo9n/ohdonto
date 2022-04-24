@@ -10,9 +10,9 @@ class FormBasedSignupCodeVerificationDatasource
   @override
   Future<Either<Failure, bool>> verifySignUpCode(
       VerificationCodeParam param) async {
-    debugPrint('data source: vou esperar 3 segundos antes de enviar...'); //todo
-    return await Future.delayed(const Duration(seconds: 3), () {
-      if (param.code.length == 4) {
+    debugPrint('data source: vou esperar 1 segundos antes de enviar...'); //todo
+    return await Future.delayed(const Duration(seconds: 1), () {
+      if (param.code.length == 4 && param.code == '1234') {
         return right(true); //todo: fazer a verificação.
       }
       return left(

@@ -1,8 +1,10 @@
+import 'package:dartz/dartz.dart' as dz;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/signv2/widgets/defaul_button_widget.dart';
 
+import '../core/failure.dart';
 import 'form_based_signup_code_cerification_datasource.dart';
 import 'signup_verification_controller.dart';
 
@@ -18,7 +20,8 @@ class SignUpVerifierPage extends StatefulWidget {
 
 class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
   late SignUpVerificationController controlador;
-  late ReactionDisposer errorMessageDisposer;
+  //late ReactionDisposer errorMessageDisposer;
+  late ReactionDisposer verificationCodeDisposer;
   late FocusNode b1, b2, b3, b4;
 
   @override
@@ -27,7 +30,8 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
     b2.dispose();
     b3.dispose();
     b4.dispose();
-    errorMessageDisposer();
+    // errorMessageDisposer();
+    verificationCodeDisposer();
     super.dispose();
   }
 
@@ -37,14 +41,28 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
     controlador = SignUpVerificationController();
     controlador.email = widget.email;
     controlador.setRepository(FormBasedSignupCodeVerificationDatasource());
-    errorMessageDisposer = reaction(
-      (_) => controlador.verificationCodeErrorMessage,
-      signupErrorHandler,
+    // errorMessageDisposer = reaction(
+    //   (_) => controlador.verificationCodeErrorMessage,
+    //   signupErrorHandler,
+    // );
+    verificationCodeDisposer = reaction(
+      (_) => controlador.verificationCodeObs!,
+      verificationCodeHandler,
     );
+
     b1 = FocusNode();
     b2 = FocusNode();
     b3 = FocusNode();
     b4 = FocusNode();
+  }
+
+  void inform(String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  void verificationCodeHandler(dz.Either<Failure, bool> message) {
+    message.fold((l) => inform(l.toString()), (r) => inform(r.toString()));
   }
 
   @override
@@ -67,47 +85,36 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
                     const SizedBox(height: 24),
                     _buildRowNumbersField(),
                     const SizedBox(height: 24),
-                    Center(child: Observer(
-                      builder: (_) {
+                    Center(child: Observer(builder: (_) {
+                      if (controlador.sendVerificationCodeObs != null &&
+                          controlador.sendVerificationCodeObs?.status ==
+                              FutureStatus.pending) {
+                        return const CircularProgressIndicator();
+                      } else {
                         if (controlador.sendVerificationCodeObs != null &&
                             controlador.sendVerificationCodeObs?.status ==
-                                FutureStatus.pending) {
-                          return const CircularProgressIndicator();
-                        } else {
-                          if (controlador.sendVerificationCodeObs != null &&
-                              controlador.sendVerificationCodeObs?.status ==
-                                  FutureStatus.fulfilled) {
-                            controlador.setErrorMessage();
-                          }
-                          return DefaultButton(
-                              widget: const Text(
-                                "Enviar código",
-                              ),
-                              color: Colors.blue,
-                              callback: controlador.isFullFilled
-                                  ? () {
-                                      controlador.sendVerificationCode();
-                                    }
-                                  : null);
+                                FutureStatus.fulfilled) {
+                          //controlador.setErrorMessage();
                         }
-                      },
-                    )),
+                        return DefaultButton(
+                            widget: const Text(
+                              "Enviar código",
+                            ),
+                            color: Colors.blue,
+                            callback: controlador.isFullFilled
+                                ? () {
+                                    controlador.sendVerificationCode();
+                                  }
+                                : null);
+                      }
+                    })),
                     const SizedBox(height: 24),
-                    _buildBotaoEnviarCodigo(),
+                    //_buildBotaoEnviarCodigo(),
                     _buildTextoReenviar(),
                   ],
                 )),
       ),
     ));
-  }
-
-  void signupErrorHandler(String? message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message!)));
-  }
-
-  Widget _buildBotaoEnviarCodigo() {
-    return Container();
   }
 
   Widget _buildTextoReenviar() {
