@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:ohdonto/signv2/widgets/defaul_button_widget.dart';
 
 import 'form_based_signup_code_cerification_datasource.dart';
 import 'signup_verification_controller.dart';
 
 class SignUpVerifierPage extends StatefulWidget {
-  const SignUpVerifierPage({Key? key, this.email}) : super(key: key);
+  const SignUpVerifierPage({Key? key, this.email})
+      : super(key: key); //todo: email
 
   final String? email;
 
@@ -16,7 +18,7 @@ class SignUpVerifierPage extends StatefulWidget {
 
 class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
   late SignUpVerificationController controlador;
-
+  late ReactionDisposer errorMessageDisposer;
   late FocusNode b1, b2, b3, b4;
 
   @override
@@ -25,6 +27,7 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
     b2.dispose();
     b3.dispose();
     b4.dispose();
+    errorMessageDisposer();
     super.dispose();
   }
 
@@ -32,8 +35,12 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
   void initState() {
     super.initState();
     controlador = SignUpVerificationController();
-    controlador
-        .setVerificationStrategy(FormBasedSignupCodeVerificationDatasource());
+    controlador.email = widget.email;
+    controlador.setRepository(FormBasedSignupCodeVerificationDatasource());
+    errorMessageDisposer = reaction(
+      (_) => controlador.verificationCodeErrorMessage,
+      signupErrorHandler,
+    );
     b1 = FocusNode();
     b2 = FocusNode();
     b3 = FocusNode();
@@ -44,36 +51,59 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            child: Padding(
-                padding: const EdgeInsets.all(17.0),
-                child: Observer(
-                    builder: (_) => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildFirstRow(),
-                              const SizedBox(height: 24),
-                              const Text('Verificar ',
-                                  style: TextStyle(fontSize: 45)),
-                              const Text('Código',
-                                  style: TextStyle(fontSize: 45)),
-                              const SizedBox(height: 24),
-                              const Text('Um código foi enviado para'),
-                              Text('${widget.email}'),
-                              const SizedBox(height: 24),
-                              _buildRowNumbersField(),
-                              const SizedBox(height: 24),
-                              Center(
-                                  child: DefaultButton(
-                                      widget: const Text(
-                                        "Enviar código",
-                                      ),
-                                      color: Colors.blue,
-                                      callback: controlador.isFullFilled
-                                          ? () {}
-                                          : null)),
-                              const SizedBox(height: 24),
-                              _buildBotaoEnviarCodigo()
-                            ])))));
+      child: Padding(
+        padding: const EdgeInsets.all(17.0),
+        child: Observer(
+            builder: (_) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildFirstRow(),
+                    const SizedBox(height: 24),
+                    const Text('Verificar ', style: TextStyle(fontSize: 45)),
+                    const Text('Código', style: TextStyle(fontSize: 45)),
+                    const SizedBox(height: 24),
+                    const Text('Um código foi enviado para'),
+                    Text('${widget.email}'),
+                    const SizedBox(height: 24),
+                    _buildRowNumbersField(),
+                    const SizedBox(height: 24),
+                    Center(child: Observer(
+                      builder: (_) {
+                        if (controlador.sendVerificationCodeObs != null &&
+                            controlador.sendVerificationCodeObs?.status ==
+                                FutureStatus.pending) {
+                          return const CircularProgressIndicator();
+                        } else {
+                          if (controlador.sendVerificationCodeObs != null &&
+                              controlador.sendVerificationCodeObs?.status ==
+                                  FutureStatus.fulfilled) {
+                            controlador.setErrorMessage();
+                          }
+                          return DefaultButton(
+                              widget: const Text(
+                                "Enviar código",
+                              ),
+                              color: Colors.blue,
+                              callback: controlador.isFullFilled
+                                  ? () {
+                                      controlador.sendVerificationCode();
+                                    }
+                                  : null);
+                        }
+                      },
+                    )),
+                    const SizedBox(height: 24),
+                    _buildBotaoEnviarCodigo(),
+                    _buildTextoReenviar(),
+                  ],
+                )),
+      ),
+    ));
+  }
+
+  void signupErrorHandler(String? message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message!)));
   }
 
   Widget _buildBotaoEnviarCodigo() {
@@ -83,9 +113,15 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
   Widget _buildTextoReenviar() {
     return Center(
       child: RichText(
-          text: const TextSpan(
+          text: TextSpan(
+              style: const TextStyle(color: Colors.grey),
               text: "Não recebi o código. ",
-              children: [TextSpan(text: "Reenviar")])),
+              children: [
+            TextSpan(
+              text: "Reenviar",
+              style: TextStyle(color: Theme.of(context).primaryColor),
+            ),
+          ])),
     );
   }
 
@@ -113,17 +149,17 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
         }, b1),
         const SizedBox(width: 12),
         _buildNumberField((field) {
-          controlador.setField1(field);
+          controlador.setField2(field);
           b3.nextFocus();
         }, b2),
         const SizedBox(width: 12),
         _buildNumberField((field) {
-          controlador.setField1(field);
+          controlador.setField3(field);
           b4.nextFocus();
         }, b3),
         const SizedBox(width: 12),
         _buildNumberField((field) {
-          controlador.setField1(field);
+          controlador.setField4(field);
         }, b4),
       ],
     );
