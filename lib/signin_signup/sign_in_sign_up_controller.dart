@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
-import 'package:ohdonto/signv2/datasource/signup_datasource.dart';
+import 'package:ohdonto/signin_signup/datasource/signup_datasource.dart';
 
-import 'package:ohdonto/signv2/domain/sign_up_entity.dart';
-import 'package:ohdonto/signv2/domain/user_entity.dart';
-import 'package:ohdonto/signv2/repositories/signin_signup_repository.dart';
-import 'package:ohdonto/signv2/repositories/signin_signup_repository_impl.dart';
+import 'package:ohdonto/signin_signup/domain/sign_up_entity.dart';
+import 'package:ohdonto/signin_signup/domain/user_entity.dart';
+import 'package:ohdonto/signin_signup/repositories/signin_signup_repository.dart';
+import 'package:ohdonto/signin_signup/repositories/signin_signup_repository_impl.dart';
 
 part 'sign_in_sign_up_controller.g.dart';
 

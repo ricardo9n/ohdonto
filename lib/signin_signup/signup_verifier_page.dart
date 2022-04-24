@@ -2,11 +2,12 @@ import 'package:dartz/dartz.dart' as dz;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:ohdonto/signv2/widgets/defaul_button_widget.dart';
 
-import '../core/failure.dart';
-import 'form_based_signup_code_cerification_datasource.dart';
-import 'signup_verification_controller.dart';
+import 'package:ohdonto/signin_signup/widgets/defaul_button_widget.dart';
+import 'package:ohdonto/core/failure.dart';
+import 'package:ohdonto/signin_signup/signup_verification_controller.dart';
+
+import 'datasource/rest_dio_signup_datasource.dart';
 
 class SignUpVerifierPage extends StatefulWidget {
   const SignUpVerifierPage({Key? key, this.email})
@@ -40,11 +41,7 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
     super.initState();
     controlador = SignUpVerificationController();
     controlador.email = widget.email;
-    controlador.setRepository(FormBasedSignupCodeVerificationDatasource());
-    // errorMessageDisposer = reaction(
-    //   (_) => controlador.verificationCodeErrorMessage,
-    //   signupErrorHandler,
-    // );
+    controlador.setRepository(RestDioSignupDataSource());
     verificationCodeDisposer = reaction(
       (_) => controlador.verificationCodeObs!,
       verificationCodeHandler,
@@ -56,13 +53,34 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
     b4 = FocusNode();
   }
 
-  void inform(String message) {
+  void showMessage(String message) {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
   }
 
+  Future showDialogMessage(String titulo, String conteudo) {
+    return showDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog(
+              title: Text(titulo),
+              content: Text(conteudo),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text("Ok"))
+              ]);
+        });
+  }
+
   void verificationCodeHandler(dz.Either<Failure, bool> message) {
-    message.fold((l) => inform(l.toString()), (r) => inform(r.toString()));
+    message.fold((l) => showDialogMessage("Falha", "$l"), (r) {
+      if (r) {
+        showDialogMessage("Sucesso", "Codigo verificado com sucesso");
+      } else {
+        showDialogMessage("Falha", "Codigo invalido");
+      }
+    });
   }
 
   @override

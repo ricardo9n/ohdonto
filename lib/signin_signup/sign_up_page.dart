@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
-import 'package:ohdonto/signv2/datasource/google_signup_datasource.dart';
-import 'package:ohdonto/signv2/datasource/rest_http_signup_datasource.dart';
-import 'package:ohdonto/signv2/sign_in_sign_up_controller.dart';
-import 'package:ohdonto/signv2/widgets/defaul_button_widget.dart';
+import 'package:ohdonto/signin_signup/datasource/google_signup_datasource.dart';
+import 'package:ohdonto/signin_signup/datasource/rest_http_signup_datasource.dart';
+import 'package:ohdonto/signin_signup/sign_in_sign_up_controller.dart';
+import 'package:ohdonto/signin_signup/widgets/defaul_button_widget.dart';
 
 import 'widgets/text_field_widget.dart';
 

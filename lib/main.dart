@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'signin_signup_verify/signup_verifier_page.dart';
+import 'signin_signup/signup_verifier_page.dart';
 
 void main() {
   runApp(const OhDontoApp());

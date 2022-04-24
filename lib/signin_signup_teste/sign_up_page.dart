@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
-import 'package:ohdonto/sign/sign_in_sign_up_controller.dart';
+import 'package:ohdonto/signin_signup_teste/sign_in_sign_up_controller.dart';
 
 import 'text_field_widget.dart';
 

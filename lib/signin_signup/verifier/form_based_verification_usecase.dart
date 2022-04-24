@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../core/failure.dart';
+import '../../core/failure.dart';
 import 'signup_verification_repository.dart';
 import 'verification_usecase.dart';
 

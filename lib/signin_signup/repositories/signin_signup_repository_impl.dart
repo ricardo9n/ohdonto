@@ -1,8 +1,8 @@
-import 'package:ohdonto/signv2/datasource/signup_datasource.dart';
-import 'package:ohdonto/signv2/domain/user_entity.dart';
-import 'package:ohdonto/signv2/domain/sign_up_entity.dart';
-import 'package:ohdonto/signv2/models/user_model.dart';
-import 'package:ohdonto/signv2/repositories/signin_signup_repository.dart';
+import 'package:ohdonto/signin_signup/datasource/signup_datasource.dart';
+import 'package:ohdonto/signin_signup/domain/user_entity.dart';
+import 'package:ohdonto/signin_signup/domain/sign_up_entity.dart';
+import 'package:ohdonto/signin_signup/models/user_model.dart';
+import 'package:ohdonto/signin_signup/repositories/signin_signup_repository.dart';
 
 class SigninSignupRepositoryImpl implements SignInSignUpRepository {
   SignUpDataSource dataSource;

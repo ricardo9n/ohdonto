@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:ohdonto/sign/sign_in_credential_entity.dart';
-import 'package:ohdonto/sign/sign_up_credential_entity.dart';
-import 'package:ohdonto/sign/sign_in_sign_up_repository.dart';
-import 'package:ohdonto/sign/user_entity.dart';
+import 'package:ohdonto/signin_signup_teste/sign_in_credential_entity.dart';
+import 'package:ohdonto/signin_signup_teste/sign_up_credential_entity.dart';
+import 'package:ohdonto/signin_signup_teste/sign_in_sign_up_repository.dart';
+import 'package:ohdonto/signin_signup_teste/user_entity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorageSignInSignUpRepository implements SignInSignUpRepository {

@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:ohdonto/signin_signup_verify/signup_code_verification_datasource.dart';
-import 'package:ohdonto/signin_signup_verify/signup_verification_repository.dart';
-import 'package:ohdonto/signin_signup_verify/verification_usecase.dart';
+import 'package:ohdonto/signin_signup/verifier/signup_code_verification_datasource.dart';
+import 'package:ohdonto/signin_signup/verifier/signup_verification_repository.dart';
+import 'package:ohdonto/signin_signup/verifier/verification_usecase.dart';
 
-import '../core/failure.dart';
+import '../../core/failure.dart';
 
 class FormBasedSignUpVerificationRepository
     implements
