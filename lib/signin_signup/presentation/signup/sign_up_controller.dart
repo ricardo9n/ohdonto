@@ -7,10 +7,9 @@ import 'package:ohdonto/signin_signup/domain/user_entity.dart';
 import 'package:ohdonto/signin_signup/repositories/signin_signup_repository.dart';
 import 'package:ohdonto/signin_signup/repositories/signin_signup_repository_impl.dart';
 
-part 'sign_in_sign_up_controller.g.dart';
+part 'sign_up_controller.g.dart';
 
-class SignInSignUpController = _SignInSignUpControllerBase
-    with _$SignInSignUpController;
+class SignUpController = _SignInSignUpControllerBase with _$SignUpController;
 
 abstract class _SignInSignUpControllerBase with Store {
   late SignInSignUpRepository repository;

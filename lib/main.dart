@@ -1,6 +1,19 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: unused_import
 
-import 'signin_signup/signup_verifier_page.dart';
+import 'package:flutter/material.dart';
+import 'package:ohdonto/app/pages/patient_request_widget.dart';
+import 'package:ohdonto/app/pages/sigin_sigup.dart';
+import 'package:ohdonto/gender_teste/gender_page.dart';
+import 'package:ohdonto/onboarding/onboarding_page_content.dart';
+import 'package:ohdonto/onboarding/onboarding_screen_page.dart';
+import 'package:ohdonto/signin_signup/presentation/routers.dart';
+import 'package:ohdonto/signin_signup/presentation/signup/sign_up_page.dart';
+import 'package:ohdonto/signin_signup/presentation/get-started/signin_signup_getstarted_page.dart';
+import 'package:ohdonto/signin_signup/presentation/verification/signup_verification_page.dart';
+import 'package:ohdonto/stream_teste/stream_page_mobx.dart';
+import 'package:ohdonto/teste_page.dart';
+
+import 'app/pages/main_page.dart';
 
 void main() {
   runApp(const OhDontoApp());
@@ -11,18 +24,24 @@ class OhDontoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'oh donto!',
-        theme: ThemeData(
-            primarySwatch: Colors.blue,
-            primaryColor: Colors.blue,
-            fontFamily: 'Euclid',
-            scaffoldBackgroundColor: Colors.grey.shade100),
-        //home: const MainPage(),
-        //home: OnBoardingScreenWidget(),
-        //home: //OnboardingPageContent(imagePath: '/assets/images/onboarding-dentist-front.png',"Pagina","Descricao"),
-        //home: const StreamPageMobx()
-        //home: const TestePage());
-        home: const SignUpVerifierPage(email: "rrgnf@ifal.edu.br"));
+      debugShowCheckedModeBanner: false,
+      title: 'oh donto!',
+      theme: ThemeData(
+          primarySwatch: Colors.blue,
+          primaryColor: Colors.blue,
+          fontFamily: 'Euclid',
+          scaffoldBackgroundColor: Colors.grey.shade100),
+      //home: const MainPage(),
+      //home: const TesteBotaoVoltarPage(),
+      //home: const GenderPage(),
+      //home: OnBoardingScreenWidget(),
+      //home: const StreamPageMobx(),
+      //home: const TestePage(),
+      //home: const SignUpVerificationPage(email: "rrgnf@ifal.edu.br"),
+      home: const SignInSignUpGetStartedPage(),
+      routes: {
+        toSignUpPage: (BuildContext context) => const SignUpPage(),
+      },
+    );
   }
 }

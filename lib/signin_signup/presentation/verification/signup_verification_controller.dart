@@ -3,12 +3,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/core/failure.dart';
-
-import 'verifier/form_based_signup_verification_repository.dart';
-import 'verifier/form_based_verification_usecase.dart';
-import 'verifier/signup_code_verification_datasource.dart';
-import 'verifier/signup_verification_repository.dart';
-import 'verifier/verification_usecase.dart';
+import 'package:ohdonto/signin_signup/verifier/form_based_signup_verification_repository.dart';
+import 'package:ohdonto/signin_signup/verifier/form_based_verification_usecase.dart';
+import 'package:ohdonto/signin_signup/verifier/signup_code_verification_datasource.dart';
+import 'package:ohdonto/signin_signup/verifier/signup_verification_repository.dart';
+import 'package:ohdonto/signin_signup/verifier/verification_usecase.dart';
 
 part 'signup_verification_controller.g.dart';
 

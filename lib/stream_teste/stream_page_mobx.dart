@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:ohdonto/stream/stream_page_controller_mobx.dart';
+import 'package:ohdonto/stream_teste/stream_page_controller_mobx.dart';
 
 class StreamPageMobx extends StatefulWidget {
   const StreamPageMobx({Key? key}) : super(key: key);

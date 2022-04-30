@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohdonto/gender/gender_controller_mobx.dart';
+import 'package:ohdonto/gender_teste/gender_controller_mobx.dart';
 
 import 'genders.dart';
 

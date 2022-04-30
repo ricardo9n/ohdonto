@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
 import 'package:ohdonto/signin_signup/datasource/google_signup_datasource.dart';
 import 'package:ohdonto/signin_signup/datasource/rest_http_signup_datasource.dart';
-import 'package:ohdonto/signin_signup/sign_in_sign_up_controller.dart';
-import 'package:ohdonto/signin_signup/widgets/defaul_button_widget.dart';
+import 'package:ohdonto/signin_signup/presentation/signup/sign_up_controller.dart';
+import 'package:ohdonto/signin_signup/presentation/signin_signup_base_page.dart';
+import 'package:ohdonto/signin_signup/presentation/widgets/defaul_button_widget.dart';
 
-import 'widgets/text_field_widget.dart';
+import '../widgets/text_field_widget.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -17,12 +17,12 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  late SignInSignUpController controller;
+  late SignUpController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = SignInSignUpController();
+    controller = SignUpController();
   }
 
   @override
@@ -32,19 +32,16 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildTopBarWidget(),
-            _buildCreateAccountText(),
-            _buildForm(),
-          ],
-        ),
+    return SignInSignUpBasePage(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildTopBarWidget(),
+          _buildCreateAccountText(),
+          _buildForm(),
+        ],
       ),
-    ));
+    );
   }
 
   Widget textTitle(String name) {

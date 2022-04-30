@@ -35,10 +35,12 @@ class RestDioSignupDataSource
     }
   }
 
+  @override
   Future<Either<Failure, bool>> verifySignUpCode(VerificationCodeParam param) {
     return _verifySignUpCodeServerMock(param);
   }
 
+  // ignore: unused_element
   Future<Either<Failure, bool>> _verifySignUpCodeServer(
       VerificationCodeParam param) async {
     String url = '$urlBase/signup/verify';
@@ -65,6 +67,7 @@ class RestDioSignupDataSource
     }
   }
 
+  // ignore: unused_element
   Future<Either<Failure, bool>> _verifySignUpCodeLocalMock(
       VerificationCodeParam param) async {
     debugPrint('local data source: vou esperar 1 segundo...'); //todo

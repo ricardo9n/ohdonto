@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ohdonto/app/main_page_controller.dart';
 import 'package:ohdonto/app/models/appointment.dart';
-import 'package:ohdonto/app/pages/patient_request.dart';
+import 'package:ohdonto/app/pages/patient_request_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

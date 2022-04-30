@@ -50,8 +50,8 @@ class OnboardingPageContent extends StatelessWidget {
       ),
       Image.asset(
         imagePath,
-        width: pageSize.width * 0.8,
-        height: pageSize.width * 0.8,
+        width: pageSize.width * 0.65,
+        height: pageSize.width * 0.65,
       ),
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -86,8 +86,10 @@ class OnboardingPageContent extends StatelessWidget {
   Widget _buildSkipText(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const SigInSigUpPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const TesteBotaoVoltarPage()));
       },
       child: const Text(
         "Pular",
@@ -95,20 +97,4 @@ class OnboardingPageContent extends StatelessWidget {
       ),
     );
   }
-
-  // Widget _buildBackButtonX() {
-  //   return InkWell(
-  //     onTap: () {
-  //       pageController.previousPage(
-  //           duration: const Duration(milliseconds: 300), curve: Curves.linear);
-  //     },
-  //     child: Container(
-  //       margin: const EdgeInsets.all(15),
-  //       decoration: const BoxDecoration(
-  //         shape: BoxShape.circle,
-  //       ),
-  //       child: const Icon(Icons.arrow_back),
-  //     ),
-  //   );
-  // }
 }

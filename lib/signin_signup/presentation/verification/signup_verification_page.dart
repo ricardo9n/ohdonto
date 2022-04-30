@@ -2,24 +2,23 @@ import 'package:dartz/dartz.dart' as dz;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-
-import 'package:ohdonto/signin_signup/widgets/defaul_button_widget.dart';
 import 'package:ohdonto/core/failure.dart';
-import 'package:ohdonto/signin_signup/signup_verification_controller.dart';
+import 'package:ohdonto/signin_signup/datasource/rest_dio_signup_datasource.dart';
+import 'package:ohdonto/signin_signup/presentation/verification/signup_verification_controller.dart';
+import 'package:ohdonto/signin_signup/presentation/widgets/defaul_button_widget.dart';
+import 'package:ohdonto/signin_signup/presentation/widgets/text_field_widget.dart';
 
-import 'datasource/rest_dio_signup_datasource.dart';
-
-class SignUpVerifierPage extends StatefulWidget {
-  const SignUpVerifierPage({Key? key, this.email})
+class SignUpVerificationPage extends StatefulWidget {
+  const SignUpVerificationPage({Key? key, this.email})
       : super(key: key); //todo: email
 
   final String? email;
 
   @override
-  State<SignUpVerifierPage> createState() => _SignUpVerifierPageState();
+  State<SignUpVerificationPage> createState() => _SignUpVerificationPageState();
 }
 
-class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
+class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   late SignUpVerificationController controlador;
   //late ReactionDisposer errorMessageDisposer;
   late ReactionDisposer verificationCodeDisposer;
@@ -168,40 +167,29 @@ class _SignUpVerifierPageState extends State<SignUpVerifierPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildNumberField((field) {
-          controlador.setField1(field);
-          b2.nextFocus();
-        }, b1),
+        _buildNumberField(b1, b2, (field) => controlador.setField1(field)),
         const SizedBox(width: 12),
-        _buildNumberField((field) {
-          controlador.setField2(field);
-          b3.nextFocus();
-        }, b2),
+        _buildNumberField(b2, b3, (field) => controlador.setField2(field)),
         const SizedBox(width: 12),
-        _buildNumberField((field) {
-          controlador.setField3(field);
-          b4.nextFocus();
-        }, b3),
+        _buildNumberField(b3, b4, (field) => controlador.setField3(field)),
         const SizedBox(width: 12),
-        _buildNumberField((field) {
-          controlador.setField4(field);
-        }, b4),
+        _buildNumberField(b4, null, (field) => controlador.setField4(field)),
       ],
     );
   }
 
-  Widget _buildNumberField(callback, focusNode) {
+  Widget _buildNumberField(focusNode, nextFocusNode, callback) {
     return SizedBox(
       width: 40,
-      child: TextFormField(
+      child: TextFieldWidget(
         maxLength: 1,
         keyboardType: TextInputType.number,
-        onChanged: callback,
+        //onChanged: callback,
         focusNode: focusNode,
-        decoration: const InputDecoration(
-          hintText: "*",
-          border: OutlineInputBorder(),
-        ),
+        nextFocusNode: nextFocusNode,
+        text: "",
+        hint: "*",
+        callback: callback,
       ),
     );
   }
