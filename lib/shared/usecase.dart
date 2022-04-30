@@ -1,3 +1,3 @@
 abstract class Usecase<TReturn, TParam> {
-  Future<TReturn> call(TParam? param);
+  Future<TReturn> call({TParam param});
 }

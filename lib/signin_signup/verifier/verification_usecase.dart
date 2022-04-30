@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:ohdonto/core/usecase.dart';
+import 'package:ohdonto/shared/usecase.dart';
 
-import 'package:ohdonto/core/failure.dart';
+import 'package:ohdonto/shared/failure.dart';
 
 class VerificationCodeParam {
   String code;

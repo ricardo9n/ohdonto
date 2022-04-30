@@ -3,7 +3,7 @@ import 'package:ohdonto/signin_signup/verifier/signup_code_verification_datasour
 import 'package:ohdonto/signin_signup/verifier/signup_verification_repository.dart';
 import 'package:ohdonto/signin_signup/verifier/verification_usecase.dart';
 
-import '../../core/failure.dart';
+import 'package:ohdonto/shared/failure.dart';
 
 class FormBasedSignUpVerificationRepository
     implements

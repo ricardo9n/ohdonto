@@ -4,7 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/foundation.dart';
 
-import 'package:ohdonto/core/failure.dart';
+import 'package:ohdonto/shared/failure.dart';
 import 'package:ohdonto/signin_signup/datasource/signup_datasource.dart';
 import 'package:ohdonto/signin_signup/models/user_model.dart';
 import 'package:ohdonto/signin_signup/domain/sign_up_entity.dart';
@@ -24,14 +24,15 @@ class RestDioSignupDataSource
   }
 
   @override
-  Future<UserModel> signUp(SignUpEntity entity) async {
+  Future<Either<Failure, UserModel>> signUp(SignUpEntity entity) async {
     try {
       String dadosParaEnviar = json.encode(entity.toMap());
       var url = '$urlBase/signup';
       var response = await client.post(url, data: dadosParaEnviar);
-      return UserModel.fromMap(response.data);
+      return right(UserModel.fromMap(response.data));
     } on Exception {
-      rethrow;
+      return left(Failure(errorMessage: "error!"));
+      // rethrow;
     }
   }
 

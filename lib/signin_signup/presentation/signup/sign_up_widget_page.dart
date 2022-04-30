@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
-import 'package:ohdonto/signin_signup/datasource/google_signup_datasource.dart';
 import 'package:ohdonto/signin_signup/datasource/rest_http_signup_datasource.dart';
 import 'package:ohdonto/signin_signup/presentation/signup/sign_up_controller.dart';
 import 'package:ohdonto/signin_signup/presentation/signin_signup_base_page.dart';
 import 'package:ohdonto/signin_signup/presentation/widgets/defaul_button_widget.dart';
+import 'package:ohdonto/signin_signup/presentation/widgets/social_network_widget.dart';
+import 'package:ohdonto/signin_signup/presentation/widgets/title_widget.dart';
 
 import '../widgets/text_field_widget.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignUpWidgetPage extends StatefulWidget {
+  const SignUpWidgetPage({Key? key}) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignUpWidgetPage> createState() => _SignUpWidgetPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpWidgetPageState extends State<SignUpWidgetPage> {
   late SignUpController controller;
 
   @override
@@ -32,14 +33,20 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    double formWidth = MediaQuery.of(context).size.width;
     return SignInSignUpBasePage(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildTopBarWidget(),
-          _buildCreateAccountText(),
-          _buildForm(),
-        ],
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height * 0.95,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _buildTopBarWidget(),
+            _buildCreateAccountText(),
+            _buildForm(formWidth),
+          ],
+        ),
       ),
     );
   }
@@ -65,13 +72,14 @@ class _SignUpPageState extends State<SignUpPage> {
     return Row(
       children: [
         TopbarBackButtonWidget(callback: voltar),
-        const Text('Vamos criar uma conta?',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))
+        const TitleWidget(titleList: ["Vamos criar", "uma conta?"]),
+        /* const Text('Vamos criar uma conta?',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)) */
       ],
     );
   }
 
-  Widget _buildForm() {
+  Widget _buildForm(double width) {
     return Observer(builder: (_) {
       return Padding(
         padding: const EdgeInsets.only(left: 13, right: 13, top: 8),
@@ -79,21 +87,24 @@ class _SignUpPageState extends State<SignUpPage> {
             //mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextFieldWidget(
-                text: 'Nome',
+                width: width,
+                label: 'Nome',
                 hint: 'Digite seu nome',
                 callback: controller.setName,
                 errorText: controller.nameErrorMessage,
                 obscureText: false,
               ),
               TextFieldWidget(
-                  text: 'Email',
+                  width: width,
+                  label: 'Email',
                   hint: 'Digite seu Email',
                   //          stream: controller.emailStream,
                   callback: controller.setEmail,
                   errorText: controller.emailErrorMessage,
-                  keyboardType: TextInputType.emailAddress),
+                  inputType: TextInputType.emailAddress),
               TextFieldWidget(
-                  text: 'Senha',
+                  width: width,
+                  label: 'Senha',
                   hint: 'Digite sua senha',
                   callback: controller.setPassword,
                   errorText: controller.passwordErrorMsg,
@@ -105,7 +116,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     onPressed: controller.changePassFieldVisibility,
                   )),
               TextFieldWidget(
-                text: 'Confirmação de Senha',
+                width: width,
+                label: 'Confirmação de Senha',
                 hint: 'Digite novamente sua senha',
                 callback: controller.setRePassword,
                 obscureText: !controller.isVisiblePassField,
@@ -123,23 +135,25 @@ class _SignUpPageState extends State<SignUpPage> {
                   return Container();
                 }
               }),
+              const SizedBox(height: 30),
               _buildSendButton(),
               _buildLoginOption(),
-              _buildDividerButton(),
-              const SizedBox(
-                height: 15,
-              ),
-              _buildSocialNetworkButtons(),
+              //_buildDividerButton(),
+              // const SizedBox(
+              //   height: 15,
+              // ),
+              // _buildSocialNetworkButtons(),
+              const SocialNetworkWidget(),
             ]),
       );
     });
   }
 
   Widget _buildSendButton() {
-    return Container(
-        padding: const EdgeInsets.all(16),
+    return SizedBox(
+        //padding: const EdgeInsets.all(16),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.13,
+        height: MediaQuery.of(context).size.height * 0.08,
         child: DefaultButton(
             widget: const Text(
               "Criar conta",
@@ -154,12 +168,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 : null));
   }
 
-  // Function()? sendDataCallback() {
-  //   return () async {
-  //     controller.isFormValid ? await controller.signUp() : null;
-  //   };
-  // }
-
   Widget _buildLoginOption() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -170,7 +178,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _buildDividerButton() {
+/*   Widget _buildDividerButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: const [
@@ -195,8 +203,9 @@ class _SignUpPageState extends State<SignUpPage> {
       ],
     );
   }
+ */
 
-  Widget _buildSocialNetworkButtons() {
+/*   Widget _buildSocialNetworkButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -204,7 +213,7 @@ class _SignUpPageState extends State<SignUpPage> {
             child: _buildSocialNetworkButton(
                 "assets/images/google.png", "Google", () async {
           controller.setSignUpStrategy(GoogleSignUpDataSource());
-          controller.googleSignUp();
+          // controller.googleSignUp();
         })),
         Expanded(
           child: _buildSocialNetworkButton(
@@ -213,8 +222,9 @@ class _SignUpPageState extends State<SignUpPage> {
       ],
     );
   }
+ */
 
-  Widget _buildSocialNetworkButton(
+/*   Widget _buildSocialNetworkButton(
       String logoPath, String name, Function()? callback) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16),
@@ -243,4 +253,6 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
+ */
+
 }

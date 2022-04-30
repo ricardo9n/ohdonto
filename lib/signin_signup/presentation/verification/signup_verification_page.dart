@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart' as dz;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
-import 'package:ohdonto/core/failure.dart';
+import 'package:ohdonto/shared/failure.dart';
 import 'package:ohdonto/signin_signup/datasource/rest_dio_signup_datasource.dart';
 import 'package:ohdonto/signin_signup/presentation/verification/signup_verification_controller.dart';
 import 'package:ohdonto/signin_signup/presentation/widgets/defaul_button_widget.dart';
@@ -84,6 +84,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
 
   @override
   Widget build(BuildContext context) {
+    double formWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         body: SafeArea(
       child: Padding(
@@ -100,7 +101,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
                     const Text('Um código foi enviado para'),
                     Text('${widget.email}'),
                     const SizedBox(height: 24),
-                    _buildRowNumbersField(),
+                    _buildRowNumbersField(formWidth),
                     const SizedBox(height: 24),
                     Center(child: Observer(builder: (_) {
                       if (controlador.sendVerificationCodeObs != null &&
@@ -163,31 +164,37 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
     );
   }
 
-  Widget _buildRowNumbersField() {
+  Widget _buildRowNumbersField(width) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _buildNumberField(b1, b2, (field) => controlador.setField1(field)),
+        _buildNumberField(
+            width, b1, b2, (field) => controlador.setField1(field)),
         const SizedBox(width: 12),
-        _buildNumberField(b2, b3, (field) => controlador.setField2(field)),
+        _buildNumberField(
+            width, b2, b3, (field) => controlador.setField2(field)),
         const SizedBox(width: 12),
-        _buildNumberField(b3, b4, (field) => controlador.setField3(field)),
+        _buildNumberField(
+            width, b3, b4, (field) => controlador.setField3(field)),
         const SizedBox(width: 12),
-        _buildNumberField(b4, null, (field) => controlador.setField4(field)),
+        _buildNumberField(
+            width, b4, null, (field) => controlador.setField4(field)),
       ],
     );
   }
 
-  Widget _buildNumberField(focusNode, nextFocusNode, callback) {
+  Widget _buildNumberField(width, focusNode, nextFocusNode, callback) {
     return SizedBox(
       width: 40,
       child: TextFieldWidget(
+        width: width,
         maxLength: 1,
-        keyboardType: TextInputType.number,
+        inputType: TextInputType.number,
         //onChanged: callback,
+        textAlign: TextAlign.center,
         focusNode: focusNode,
         nextFocusNode: nextFocusNode,
-        text: "",
+        label: "",
         hint: "*",
         callback: callback,
       ),

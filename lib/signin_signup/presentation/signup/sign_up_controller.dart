@@ -3,7 +3,6 @@ import 'package:mobx/mobx.dart';
 import 'package:ohdonto/signin_signup/datasource/signup_datasource.dart';
 
 import 'package:ohdonto/signin_signup/domain/sign_up_entity.dart';
-import 'package:ohdonto/signin_signup/domain/user_entity.dart';
 import 'package:ohdonto/signin_signup/repositories/signin_signup_repository.dart';
 import 'package:ohdonto/signin_signup/repositories/signin_signup_repository_impl.dart';
 
@@ -80,7 +79,7 @@ abstract class _SignInSignUpControllerBase with Store {
       isPassEqual;
 
   void setSignUpStrategy(SignUpDataSource dataSource1) {
-    repository = SigninSignupRepositoryImpl(dataSource: dataSource1);
+    repository = SignInSignUpRepositoryImpl(signUpDataSource: dataSource1);
   }
 
   Future<void> signUp() async {
@@ -89,12 +88,8 @@ abstract class _SignInSignUpControllerBase with Store {
       name: _name!,
       password: password!,
     );
-    UserEntity user = await repository.signUp(entity: signUpEntity1);
-    debugPrint(user.toString());
-  }
-
-  Future<void> googleSignUp() async {
-    UserEntity user = await repository.signUp();
-    debugPrint(user.toString());
+    var response = await repository.signUp(entity: signUpEntity1);
+    response.fold((failure) => debugPrint("Falha;"),
+        (user) => debugPrint(user.toString()));
   }
 }

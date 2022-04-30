@@ -7,7 +7,8 @@ import 'package:ohdonto/gender_teste/gender_page.dart';
 import 'package:ohdonto/onboarding/onboarding_page_content.dart';
 import 'package:ohdonto/onboarding/onboarding_screen_page.dart';
 import 'package:ohdonto/signin_signup/presentation/routers.dart';
-import 'package:ohdonto/signin_signup/presentation/signup/sign_up_page.dart';
+import 'package:ohdonto/signin_signup/presentation/signin/sign_in_widget_page.dart';
+import 'package:ohdonto/signin_signup/presentation/signup/sign_up_widget_page.dart';
 import 'package:ohdonto/signin_signup/presentation/get-started/signin_signup_getstarted_page.dart';
 import 'package:ohdonto/signin_signup/presentation/verification/signup_verification_page.dart';
 import 'package:ohdonto/stream_teste/stream_page_mobx.dart';
@@ -38,9 +39,11 @@ class OhDontoApp extends StatelessWidget {
       //home: const StreamPageMobx(),
       //home: const TestePage(),
       //home: const SignUpVerificationPage(email: "rrgnf@ifal.edu.br"),
-      home: const SignInSignUpGetStartedPage(),
+      // home: const SignUpPage(),
+      //home: const SignInSignUpGetStartedPage(),
+      home: const SignInWidget(),
       routes: {
-        toSignUpPage: (BuildContext context) => const SignUpPage(),
+        toSignUpPage: (BuildContext context) => const SignUpWidgetPage(),
       },
     );
   }

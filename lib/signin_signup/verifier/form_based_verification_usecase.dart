@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../core/failure.dart';
+import '../../shared/failure.dart';
 import 'signup_verification_repository.dart';
 import 'verification_usecase.dart';
 
@@ -10,7 +10,7 @@ class FormBasedVerificationUsecase extends VerificationUsecase {
   FormBasedVerificationUsecase({required this.repository});
 
   @override
-  Future<Either<Failure, bool>> call(VerificationCodeParam? param) async {
+  Future<Either<Failure, bool>> call({VerificationCodeParam? param}) async {
     if (param?.code.length != 4) {
       return left(
           InvalidCodeVerificationFailure(errorMessage: "codigo invalido!"));
