@@ -44,6 +44,7 @@ class OhDontoApp extends StatelessWidget {
       home: const SignInWidget(),
       routes: {
         toSignUpPage: (BuildContext context) => const SignUpWidgetPage(),
+        toMainPage: (BuildContext context) => const MainPage(),
       },
     );
   }

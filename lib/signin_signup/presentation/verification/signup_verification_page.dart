@@ -196,7 +196,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
         nextFocusNode: nextFocusNode,
         label: "",
         hint: "*",
-        callback: callback,
+        onChangedCallback: callback,
       ),
     );
   }

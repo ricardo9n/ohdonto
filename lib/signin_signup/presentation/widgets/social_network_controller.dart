@@ -9,7 +9,8 @@ class SocialNetworkController = _SocialNetworkControllerBase
 abstract class _SocialNetworkControllerBase with Store {
   late SignInSignUpRepository repository;
 
-  void setRepository(SignInSignUpRepository repo) => repository = repo;
+  void setRepository({required SignInSignUpRepository repo}) =>
+      repository = repo;
 
   Future<void> googleSignUp() async {
     var response = await repository.signUp();

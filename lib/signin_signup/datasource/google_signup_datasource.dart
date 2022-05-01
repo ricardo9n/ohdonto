@@ -3,11 +3,12 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ohdonto/shared/failure.dart';
 
-import 'package:ohdonto/signin_signup/datasource/signup_datasource.dart';
+import 'package:ohdonto/signin_signup/datasource/signin_signup_datasource.dart';
+import 'package:ohdonto/signin_signup/domain/sign_in_entity.dart';
 import 'package:ohdonto/signin_signup/models/user_model.dart';
 import 'package:ohdonto/signin_signup/domain/sign_up_entity.dart';
 
-class GoogleSignUpDataSource implements SignUpDataSource {
+class GoogleSignUpDataSource implements SignInSignUpDataSource {
   late GoogleSignIn _googleSignIn;
 
   GoogleSignUpDataSource() {
@@ -34,5 +35,10 @@ class GoogleSignUpDataSource implements SignUpDataSource {
         ),
       );
     }
+  }
+
+  @override
+  Future<Either<Failure, UserModel>> signIn(SignInEntity entity) {
+    throw UnimplementedError();
   }
 }

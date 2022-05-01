@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
-import 'package:ohdonto/signin_signup/datasource/signup_datasource.dart';
+import 'package:ohdonto/signin_signup/datasource/signin_signup_datasource.dart';
 
 import 'package:ohdonto/signin_signup/domain/sign_up_entity.dart';
 import 'package:ohdonto/signin_signup/repositories/signin_signup_repository.dart';
@@ -78,8 +78,8 @@ abstract class _SignInSignUpControllerBase with Store {
       isValidPassword &&
       isPassEqual;
 
-  void setSignUpStrategy(SignUpDataSource dataSource1) {
-    repository = SignInSignUpRepositoryImpl(signUpDataSource: dataSource1);
+  void setSignUpStrategy(SignInSignUpDataSource dataSource1) {
+    repository = SignInSignUpRepositoryImpl(datasource: dataSource1);
   }
 
   Future<void> signUp() async {
@@ -88,7 +88,7 @@ abstract class _SignInSignUpControllerBase with Store {
       name: _name!,
       password: password!,
     );
-    var response = await repository.signUp(entity: signUpEntity1);
+    var response = await repository.signUp(signUpEntity: signUpEntity1);
     response.fold((failure) => debugPrint("Falha;"),
         (user) => debugPrint(user.toString()));
   }

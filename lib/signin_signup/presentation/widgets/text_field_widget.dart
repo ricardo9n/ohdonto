@@ -8,22 +8,21 @@ class TextFieldWidget extends StatefulWidget {
   final TextInputType inputType;
   //final ValueStream stream;
   final Widget? icon;
-  final Function(String)? callback;
+  final Function(String)? onChangedCallback;
   final String? errorText;
   final FocusNode? focusNode;
   final FocusNode? nextFocusNode;
   final TextAlign? textAlign;
   final int maxLength;
   final double width;
-
-  final Function()? onChanged;
+  //final Function()? onChangedCallback;
 
   const TextFieldWidget({
     Key? key,
     required this.label,
     this.hint,
     //required this.stream,
-    this.callback,
+    this.onChangedCallback,
     this.errorText,
     this.obscureText = false,
     this.icon,
@@ -32,7 +31,7 @@ class TextFieldWidget extends StatefulWidget {
     this.nextFocusNode,
     this.textAlign,
     this.maxLength = 50,
-    this.onChanged,
+    //this.onChangedCallback,
     required this.width,
   }) : super(key: key);
 
@@ -71,8 +70,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
               if (widget.nextFocusNode != null) {
                 widget.nextFocusNode?.requestFocus();
               }
-              if (widget.callback != null) {
-                widget.callback!(content);
+              if (widget.onChangedCallback != null) {
+                widget.onChangedCallback!(content);
               }
             }),
       );

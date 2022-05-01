@@ -90,7 +90,7 @@ class _SignUpWidgetPageState extends State<SignUpWidgetPage> {
                 width: width,
                 label: 'Nome',
                 hint: 'Digite seu nome',
-                callback: controller.setName,
+                onChangedCallback: controller.setName,
                 errorText: controller.nameErrorMessage,
                 obscureText: false,
               ),
@@ -99,14 +99,14 @@ class _SignUpWidgetPageState extends State<SignUpWidgetPage> {
                   label: 'Email',
                   hint: 'Digite seu Email',
                   //          stream: controller.emailStream,
-                  callback: controller.setEmail,
+                  onChangedCallback: controller.setEmail,
                   errorText: controller.emailErrorMessage,
                   inputType: TextInputType.emailAddress),
               TextFieldWidget(
                   width: width,
                   label: 'Senha',
                   hint: 'Digite sua senha',
-                  callback: controller.setPassword,
+                  onChangedCallback: controller.setPassword,
                   errorText: controller.passwordErrorMsg,
                   obscureText: !controller.isVisiblePassField,
                   icon: IconButton(
@@ -119,7 +119,7 @@ class _SignUpWidgetPageState extends State<SignUpWidgetPage> {
                 width: width,
                 label: 'Confirmação de Senha',
                 hint: 'Digite novamente sua senha',
-                callback: controller.setRePassword,
+                onChangedCallback: controller.setRePassword,
                 obscureText: !controller.isVisiblePassField,
                 icon: IconButton(
                   icon: controller.isVisiblePassField

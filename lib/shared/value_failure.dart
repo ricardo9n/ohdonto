@@ -18,3 +18,8 @@ class PasswordFailure extends ValueFailure {
   PasswordFailure({required String errorMessage})
       : super(errorMessage: errorMessage);
 }
+
+class UserCredentialsNotMatch extends ValueFailure {
+  UserCredentialsNotMatch({required String errorMessage})
+      : super(errorMessage: errorMessage);
+}
