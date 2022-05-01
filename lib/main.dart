@@ -12,7 +12,7 @@ import 'package:ohdonto/signin_signup/presentation/signup/sign_up_widget_page.da
 import 'package:ohdonto/signin_signup/presentation/get-started/signin_signup_getstarted_page.dart';
 import 'package:ohdonto/signin_signup/presentation/verification/signup_verification_page.dart';
 import 'package:ohdonto/stream_teste/stream_page_mobx.dart';
-import 'package:ohdonto/teste_page.dart';
+import 'package:ohdonto/teste/teste_page.dart';
 
 import 'app/pages/main_page.dart';
 
@@ -41,10 +41,16 @@ class OhDontoApp extends StatelessWidget {
       //home: const SignUpVerificationPage(email: "rrgnf@ifal.edu.br"),
       // home: const SignUpPage(),
       //home: const SignInSignUpGetStartedPage(),
-      home: const SignInWidget(),
+      //home: const SignInWidget(),
       routes: {
+        '/': (BuildContext context) => OnBoardingScreenWidget(),
         toSignUpPage: (BuildContext context) => const SignUpWidgetPage(),
+        toSignInPage: (BuildContext context) => const SignInWidget(),
         toMainPage: (BuildContext context) => const MainPage(),
+        toGetStarted: (BuildContext context) =>
+            const SignInSignUpGetStartedPage(),
+        toVerificationPage: (BuildContext context) =>
+            const SignUpVerificationPage(),
       },
     );
   }

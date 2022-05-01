@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
 import 'package:ohdonto/signin_signup/datasource/rest_http_signup_datasource.dart';
+import 'package:ohdonto/signin_signup/domain/user_entity.dart';
+import 'package:ohdonto/signin_signup/presentation/routers.dart';
 import 'package:ohdonto/signin_signup/presentation/signup/sign_up_controller.dart';
 import 'package:ohdonto/signin_signup/presentation/signin_signup_base_page.dart';
 import 'package:ohdonto/signin_signup/presentation/widgets/defaul_button_widget.dart';
@@ -19,15 +22,34 @@ class SignUpWidgetPage extends StatefulWidget {
 
 class _SignUpWidgetPageState extends State<SignUpWidgetPage> {
   late SignUpController controller;
+  late ReactionDisposer errorDisposer;
+  late ReactionDisposer successDisposer;
 
   @override
   void initState() {
     super.initState();
     controller = SignUpController();
+
+    errorDisposer =
+        reaction((_) => controller.signUpErrorMessage, signUpErrorHandler);
+    successDisposer =
+        reaction((_) => controller.userEntity, signUpSuccessHandler);
+  }
+
+  void signUpErrorHandler(String? message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message!)),
+    );
+  }
+
+  void signUpSuccessHandler(UserEntity? userEntity) {
+    Navigator.pushNamed(context, toVerificationPage, arguments: userEntity);
   }
 
   @override
   void dispose() {
+    errorDisposer();
+    successDisposer();
     super.dispose();
   }
 

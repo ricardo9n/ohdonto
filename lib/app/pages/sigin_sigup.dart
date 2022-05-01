@@ -11,6 +11,7 @@ class TesteBotaoVoltarPage extends StatelessWidget {
           child: const Text('Voltar!'),
           onPressed: () {
             Navigator.pop(context);
+            //Navigator.pushNamed(context, toGetStarted);
           },
         ),
       ),

@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/signin_signup/datasource/signin_signup_datasource.dart';
 
 import 'package:ohdonto/signin_signup/domain/sign_up_entity.dart';
+import 'package:ohdonto/signin_signup/domain/user_entity.dart';
 import 'package:ohdonto/signin_signup/repositories/signin_signup_repository.dart';
 import 'package:ohdonto/signin_signup/repositories/signin_signup_repository_impl.dart';
 
@@ -24,6 +24,12 @@ abstract class _SignInSignUpControllerBase with Store {
 
   @observable
   bool isVisiblePassField = false;
+
+  @observable
+  UserEntity? userEntity;
+
+  @observable
+  String? signUpErrorMessage;
 
   @action
   void setName(String name) {
@@ -89,7 +95,7 @@ abstract class _SignInSignUpControllerBase with Store {
       password: password!,
     );
     var response = await repository.signUp(signUpEntity: signUpEntity1);
-    response.fold((failure) => debugPrint("Falha;"),
-        (user) => debugPrint(user.toString()));
+    response.fold((failure) => signUpErrorMessage = failure.errorMessage,
+        (user) => userEntity = user);
   }
 }

@@ -3,6 +3,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/shared/failure.dart';
+import 'package:ohdonto/signin_signup/domain/user_entity.dart';
 import 'package:ohdonto/signin_signup/verifier/form_based_signup_verification_repository.dart';
 import 'package:ohdonto/signin_signup/verifier/form_based_verification_usecase.dart';
 import 'package:ohdonto/signin_signup/verifier/signup_code_verification_datasource.dart';
@@ -17,7 +18,7 @@ class SignUpVerificationController = _SignUpVerificationControllerBase
 abstract class _SignUpVerificationControllerBase with Store {
   late SignUpVerificationRepository repository;
 
-  String? _email;
+  //String? _email;
 
   @observable
   String? field1;
@@ -28,14 +29,16 @@ abstract class _SignUpVerificationControllerBase with Store {
   @observable
   String? field4;
 
-  // @observable
-  // String? verificationCodeErrorMessage;
+  UserEntity? _userEntity;
 
   @observable
   Either<Failure, bool>? verificationCodeObs;
 
-  // @observable
-  // bool? verificationCodeResultValidation;
+  @observable
+  String? codeVerificationErrorMessage;
+
+  @observable
+  bool? verificationCodeResultValidation;
 
   @observable
   ObservableFuture<Either<Failure, bool>>? sendVerificationCodeObs;
@@ -49,7 +52,8 @@ abstract class _SignUpVerificationControllerBase with Store {
   @action
   void setField4(String field) => field4 = field;
 
-  set email(email) => _email = email;
+  set userEntity(userEntity) => _userEntity = userEntity;
+  get userEntity => _userEntity;
 
   @computed
   bool get isFullFilled =>
@@ -67,21 +71,26 @@ abstract class _SignUpVerificationControllerBase with Store {
     VerificationUsecase usecase =
         FormBasedVerificationUsecase(repository: repository);
     VerificationCodeParam param =
-        VerificationCodeParam(code: userCode, email: _email!);
+        VerificationCodeParam(code: userCode, email: _userEntity!.email);
 
     sendVerificationCodeObs = ObservableFuture(usecase(param: param));
     //debugPrint("verify> $userCode -> $sendVerificationCodeObs");
     verificationCodeObs = await sendVerificationCodeObs;
-  }
 
-  // @action
-  // void setErrorMessage() {
-  //   verificationCodeObs?.fold(
-  //       (failure) => verificationCodeErrorMessage = failure.toString(),
-  //       (result) => verificationCodeResultValidation = result);
-  // }
+    verificationCodeObs?.fold(
+        (failure) => codeVerificationErrorMessage = failure.toString(),
+        (result) => verificationCodeResultValidation = result);
+    //setErrorMessage();
+  }
 
   void setRepository(SignupCodeVerificationDatasource datasource) {
     repository = FormBasedSignUpVerificationRepository(datasource);
   }
+
+/*@action
+  void setErrorMessage() {
+    verificationCodeObs?.fold(
+        (failure) => codeVerificationErrorMessage = failure.toString(),
+        (result) => null);
+  }*/
 }

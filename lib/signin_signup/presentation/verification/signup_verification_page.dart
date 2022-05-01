@@ -4,15 +4,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/shared/failure.dart';
 import 'package:ohdonto/signin_signup/datasource/rest_dio_signup_datasource.dart';
+import 'package:ohdonto/signin_signup/domain/user_entity.dart';
 import 'package:ohdonto/signin_signup/presentation/verification/signup_verification_controller.dart';
 import 'package:ohdonto/signin_signup/presentation/widgets/defaul_button_widget.dart';
 import 'package:ohdonto/signin_signup/presentation/widgets/text_field_widget.dart';
 
 class SignUpVerificationPage extends StatefulWidget {
-  const SignUpVerificationPage({Key? key, this.email})
-      : super(key: key); //todo: email
-
-  final String? email;
+  const SignUpVerificationPage({Key? key}) : super(key: key); //todo: email
 
   @override
   State<SignUpVerificationPage> createState() => _SignUpVerificationPageState();
@@ -23,6 +21,16 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   //late ReactionDisposer errorMessageDisposer;
   late ReactionDisposer verificationCodeDisposer;
   late FocusNode b1, b2, b3, b4;
+  late UserEntity userEntity;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    userEntity = ModalRoute.of(context)?.settings.arguments as UserEntity;
+
+    controlador.userEntity = userEntity; //TODO: verificar se está funcionando.
+  }
 
   @override
   void dispose() {
@@ -39,7 +47,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   void initState() {
     super.initState();
     controlador = SignUpVerificationController();
-    controlador.email = widget.email;
+    //controlador.email = widget.email;
     controlador.setRepository(RestDioSignupDataSource());
     verificationCodeDisposer = reaction(
       (_) => controlador.verificationCodeObs!,
@@ -99,7 +107,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
                     const Text('Código', style: TextStyle(fontSize: 45)),
                     const SizedBox(height: 24),
                     const Text('Um código foi enviado para'),
-                    Text('${widget.email}'),
+                    Text("> ${userEntity.email} <"),
                     const SizedBox(height: 24),
                     _buildRowNumbersField(formWidth),
                     const SizedBox(height: 24),

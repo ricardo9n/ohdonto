@@ -1,3 +1,5 @@
-const String toSignUpPage = "/SignUpPage";
-const String toSignInPage = "/SignInPage";
-const String toMainPage = "/MainPage";
+const String toSignUpPage = "/toSignUpPage";
+const String toSignInPage = "/toSignInPage";
+const String toMainPage = "/toMainPage";
+const String toGetStarted = "/toGetStartedPage";
+const String toVerificationPage = "/toVerificationPage";

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ohdonto/app/pages/sigin_sigup.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
+import 'package:ohdonto/signin_signup/presentation/routers.dart';
 
 // ignore: must_be_immutable
 class OnboardingPageContent extends StatelessWidget {
@@ -67,6 +67,10 @@ class OnboardingPageContent extends StatelessWidget {
       ),
       InkWell(
         onTap: () {
+          //print('proxima pagina $pageIndex ${pagesLength - 1}');
+          if (pageIndex == pagesLength - 1) {
+            skip(context);
+          }
           pageController.nextPage(
               duration: const Duration(milliseconds: 300),
               curve: Curves.linear);
@@ -86,15 +90,20 @@ class OnboardingPageContent extends StatelessWidget {
   Widget _buildSkipText(BuildContext context) {
     return TextButton(
       onPressed: () {
-        Navigator.push(
+        skip(context);
+      },
+      /* Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const TesteBotaoVoltarPage()));
-      },
+                builder: (context) => const TesteBotaoVoltarPage())); */
       child: const Text(
         "Pular",
         style: TextStyle(fontSize: 24),
       ),
     );
+  }
+
+  void skip(context) {
+    Navigator.pushReplacementNamed(context, toGetStarted);
   }
 }

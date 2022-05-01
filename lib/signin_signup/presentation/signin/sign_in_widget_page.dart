@@ -22,6 +22,7 @@ class SignInWidget extends StatefulWidget {
 
 class _SignInWidgetState extends State<SignInWidget> {
   late SignInWidgetController controller;
+
   late ReactionDisposer singInErrorMessageDisposer;
   late ReactionDisposer singInSuccessDisposer;
 
@@ -31,6 +32,7 @@ class _SignInWidgetState extends State<SignInWidget> {
 
     controller = SignInWidgetController();
     controller.setDataSource(RestDioSignupDataSource());
+
     singInErrorMessageDisposer = reaction(
         (_) => controller.signInErrorMessage, handleSignInErrorMessage);
 
@@ -41,6 +43,7 @@ class _SignInWidgetState extends State<SignInWidget> {
   @override
   void dispose() {
     singInErrorMessageDisposer();
+    singInSuccessDisposer();
     super.dispose();
   }
 
