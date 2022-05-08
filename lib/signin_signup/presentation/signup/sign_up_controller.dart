@@ -1,10 +1,8 @@
 import 'package:mobx/mobx.dart';
-import 'package:ohdonto/signin_signup/datasource/signin_signup_datasource.dart';
 
 import 'package:ohdonto/signin_signup/domain/sign_up_entity.dart';
 import 'package:ohdonto/signin_signup/domain/user_entity.dart';
 import 'package:ohdonto/signin_signup/repositories/signin_signup_repository.dart';
-import 'package:ohdonto/signin_signup/repositories/signin_signup_repository_impl.dart';
 
 part 'sign_up_controller.g.dart';
 
@@ -12,6 +10,8 @@ class SignUpController = _SignInSignUpControllerBase with _$SignUpController;
 
 abstract class _SignInSignUpControllerBase with Store {
   late SignInSignUpRepository repository;
+
+  _SignInSignUpControllerBase({required this.repository});
 
   @observable
   String? _name;
@@ -84,17 +84,20 @@ abstract class _SignInSignUpControllerBase with Store {
       isValidPassword &&
       isPassEqual;
 
-  void setSignUpStrategy(SignInSignUpDataSource dataSource1) {
-    repository = SignInSignUpRepositoryImpl(datasource: dataSource1);
-  }
+  // void setSignUpStrategy(SignInSignUpDataSource dataSource1) {
+  //   repository = SignInSignUpRepositoryImpl(datasource: dataSource1);
+  // }
 
   Future<void> signUp() async {
+    // repository = Modular.get<SignInSignUpRepository>();
+
     SignUpEntity signUpEntity1 = SignUpEntity(
       email: email!,
       name: _name!,
       password: password!,
     );
     var response = await repository.signUp(signUpEntity: signUpEntity1);
+
     response.fold((failure) => signUpErrorMessage = failure.errorMessage,
         (user) => userEntity = user);
   }

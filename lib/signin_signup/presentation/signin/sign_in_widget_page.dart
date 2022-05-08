@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
-import 'package:ohdonto/signin_signup/datasource/rest_dio_signup_datasource.dart';
 import 'package:ohdonto/signin_signup/domain/user_entity.dart';
 import 'package:ohdonto/signin_signup/presentation/signin/sign_in_widget_controller.dart';
 import 'package:ohdonto/signin_signup/presentation/signin_signup_base_page.dart';
@@ -30,8 +30,9 @@ class _SignInWidgetState extends State<SignInWidget> {
   void initState() {
     super.initState();
 
-    controller = SignInWidgetController();
-    controller.setDataSource(RestDioSignupDataSource());
+    // controller = SignInWidgetController();
+    // controller.setDataSource(RestDioSignupDataSource());
+    controller = Modular.get<SignInWidgetController>();
 
     singInErrorMessageDisposer = reaction(
         (_) => controller.signInErrorMessage, handleSignInErrorMessage);

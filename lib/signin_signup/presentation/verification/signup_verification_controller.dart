@@ -1,13 +1,8 @@
-//import 'package:either_dart/either.dart' show Either;
-
 import 'package:dartz/dartz.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/shared/failure.dart';
 import 'package:ohdonto/signin_signup/domain/user_entity.dart';
-import 'package:ohdonto/signin_signup/verifier/form_based_signup_verification_repository.dart';
-import 'package:ohdonto/signin_signup/verifier/form_based_verification_usecase.dart';
-import 'package:ohdonto/signin_signup/verifier/signup_code_verification_datasource.dart';
-import 'package:ohdonto/signin_signup/verifier/signup_verification_repository.dart';
 import 'package:ohdonto/signin_signup/verifier/verification_usecase.dart';
 
 part 'signup_verification_controller.g.dart';
@@ -16,8 +11,7 @@ class SignUpVerificationController = _SignUpVerificationControllerBase
     with _$SignUpVerificationController;
 
 abstract class _SignUpVerificationControllerBase with Store {
-  late SignUpVerificationRepository repository;
-
+  // late SignUpVerificationRepository repository;
   //String? _email;
 
   @observable
@@ -68,8 +62,9 @@ abstract class _SignUpVerificationControllerBase with Store {
 
   void sendVerificationCode() async {
     String userCode = "$field1$field2$field3$field4";
-    VerificationUsecase usecase =
-        FormBasedVerificationUsecase(repository: repository);
+
+    VerificationUsecase usecase = Modular.get<VerificationUsecase>();
+
     VerificationCodeParam param =
         VerificationCodeParam(code: userCode, email: _userEntity!.email);
 
@@ -83,9 +78,9 @@ abstract class _SignUpVerificationControllerBase with Store {
     //setErrorMessage();
   }
 
-  void setRepository(SignupCodeVerificationDatasource datasource) {
-    repository = FormBasedSignUpVerificationRepository(datasource);
-  }
+  // void setRepository(SignupCodeVerificationDatasource datasource) {
+  //   repository = FormBasedSignUpVerificationRepository(datasource);
+  // }
 
 /*@action
   void setErrorMessage() {

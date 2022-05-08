@@ -11,3 +11,6 @@ class AppModule extends Module {
         ModuleRoute('/$toGetStartedPage', module: SignInSignUpModule()),
       ];
 }
+
+//   toVerificationPage: (BuildContext context) =>
+      //       const SignUpVerificationPage(),

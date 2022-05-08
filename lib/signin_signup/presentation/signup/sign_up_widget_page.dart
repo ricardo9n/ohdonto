@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
-import 'package:ohdonto/signin_signup/datasource/rest_http_signup_datasource.dart';
 import 'package:ohdonto/signin_signup/domain/user_entity.dart';
 import 'package:ohdonto/signin_signup/presentation/routers.dart';
 import 'package:ohdonto/signin_signup/presentation/signup/sign_up_controller.dart';
@@ -25,10 +25,15 @@ class _SignUpWidgetPageState extends State<SignUpWidgetPage> {
   late ReactionDisposer errorDisposer;
   late ReactionDisposer successDisposer;
 
+  // _SignUpWidgetPageState() {
+  //   controller = Modular.get<SignUpController>();
+  // }
+
   @override
   void initState() {
     super.initState();
-    controller = SignUpController();
+
+    controller = Modular.get<SignUpController>();
 
     errorDisposer =
         reaction((_) => controller.signUpErrorMessage, signUpErrorHandler);
@@ -43,7 +48,8 @@ class _SignUpWidgetPageState extends State<SignUpWidgetPage> {
   }
 
   void signUpSuccessHandler(UserEntity? userEntity) {
-    Navigator.pushNamed(context, toVerificationPage, arguments: userEntity);
+    // Navigator.pushNamed(context, toVerificationPage, arguments: userEntity);
+    Modular.to.pushNamed(toVerificationPage, arguments: userEntity);
   }
 
   @override
@@ -184,7 +190,7 @@ class _SignUpWidgetPageState extends State<SignUpWidgetPage> {
             color: Theme.of(context).primaryColor,
             callback: controller.isFormValid
                 ? () {
-                    controller.setSignUpStrategy(RestHttpSignupDataSource());
+                    // controller.setSignUpStrategy(RestHttpSignupDataSource());
                     controller.signUp();
                   }
                 : null));

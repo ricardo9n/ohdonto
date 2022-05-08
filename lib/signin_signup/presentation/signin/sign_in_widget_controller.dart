@@ -1,20 +1,22 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/shared/failure.dart';
 import 'package:ohdonto/shared/value_validators.dart';
-import 'package:ohdonto/signin_signup/datasource/signin_signup_datasource.dart';
 import 'package:ohdonto/signin_signup/domain/user_entity.dart';
-import 'package:ohdonto/signin_signup/presentation/signin/form_based_sign_in_usecase.dart';
 import 'package:ohdonto/signin_signup/presentation/signin/sign_in_usecase.dart';
-import 'package:ohdonto/signin_signup/repositories/signin_signup_repository.dart';
-import 'package:ohdonto/signin_signup/repositories/signin_signup_repository_impl.dart';
+
+import 'form_based_sign_in_usecase.dart';
 part 'sign_in_widget_controller.g.dart';
 
 class SignInWidgetController = _SignInWidgetControllerBase
     with _$SignInWidgetController;
 
 abstract class _SignInWidgetControllerBase with Store {
-  late SignInSignUpRepository repository;
+  // late SignInSignUpRepository repository;
+  late SignInUsecase usecase;
+
+  _SignInWidgetControllerBase({required this.usecase});
 
   @observable
   String? email;
@@ -64,15 +66,17 @@ abstract class _SignInWidgetControllerBase with Store {
   bool get isFormValid =>
       email != null && isValidEmail && password != null && isValidPassword;
 
-  void setDataSource(SignInSignUpDataSource datasource) {
-    repository = SignInSignUpRepositoryImpl(datasource: datasource);
-  }
+  // void setDataSource(SignInSignUpDataSource datasource) {
+  //   repository = SignInSignUpRepositoryImpl(datasource: datasource);
+  // }
 
   Future<void> signIn() async {
     UserSignInCredentialParam param =
         UserSignInCredentialParam(email: email!, password: password!);
 
-    SignInUsecase usecase = FormBasedSignInUsecase(repository: repository);
+    // SignInUsecase usecase = FormBasedSignInUsecase(repository: repository);
+
+    usecase = Modular.get<FormBasedSignInUsecase>();
     signInObsFut = ObservableFuture(usecase(param: param));
 
     var response = await signInObsFut;

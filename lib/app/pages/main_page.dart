@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ohdonto/app/main_page_controller.dart';
 import 'package:ohdonto/app/models/appointment.dart';
 import 'package:ohdonto/app/pages/patient_request_widget.dart';
+import 'package:ohdonto/signin_signup/domain/user_entity.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final UserEntity userEntity;
+  const MainPage({Key? key, required this.userEntity}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPagePageState();
@@ -20,6 +22,11 @@ class _MainPagePageState extends State<MainPage> {
     super.initState();
     controller = MainPageController();
   }
+
+  /* @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  } */
 
   @override
   Widget build(BuildContext context) {

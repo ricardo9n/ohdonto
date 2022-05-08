@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:ohdonto/signin_signup/presentation/routers.dart';
 
 import '../widgets/defaul_button_widget.dart';
@@ -39,7 +40,8 @@ class SignInSignUpGetStartedPage extends StatelessWidget {
                       widget: const Text("Criar Conta",
                           style: TextStyle(color: Colors.white)),
                       callback: () {
-                        Navigator.pushNamed(context, toSignUpPage);
+                        // Navigator.pushNamed(context, toSignUpPage);
+                        Modular.to.pushNamed(toSignUpPage);
                       },
                     ),
                   ),
@@ -53,7 +55,8 @@ class SignInSignUpGetStartedPage extends StatelessWidget {
                           style:
                               TextStyle(color: Theme.of(context).primaryColor)),
                       callback: () {
-                        Navigator.pushNamed(context, toSignInPage);
+                        // Navigator.pushNamed(context, toSignInPage);
+                        Modular.to.pushNamed(toSignInPage);
                       },
                     ),
                   )

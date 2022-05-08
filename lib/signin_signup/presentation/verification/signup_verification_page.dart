@@ -1,16 +1,20 @@
 import 'package:dartz/dartz.dart' as dz;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:ohdonto/shared/failure.dart';
-import 'package:ohdonto/signin_signup/datasource/rest_dio_signup_datasource.dart';
 import 'package:ohdonto/signin_signup/domain/user_entity.dart';
+import 'package:ohdonto/signin_signup/presentation/routers.dart';
 import 'package:ohdonto/signin_signup/presentation/verification/signup_verification_controller.dart';
 import 'package:ohdonto/signin_signup/presentation/widgets/defaul_button_widget.dart';
 import 'package:ohdonto/signin_signup/presentation/widgets/text_field_widget.dart';
 
 class SignUpVerificationPage extends StatefulWidget {
-  const SignUpVerificationPage({Key? key}) : super(key: key); //todo: email
+  final UserEntity userEntity;
+
+  const SignUpVerificationPage({Key? key, required this.userEntity})
+      : super(key: key); //todo: email
 
   @override
   State<SignUpVerificationPage> createState() => _SignUpVerificationPageState();
@@ -21,17 +25,15 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   //late ReactionDisposer errorMessageDisposer;
   late ReactionDisposer verificationCodeDisposer;
   late FocusNode b1, b2, b3, b4;
-  late UserEntity userEntity;
 
-  @override
+/*   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     userEntity = ModalRoute.of(context)?.settings.arguments as UserEntity;
-
-    controlador.userEntity = userEntity; //TODO: verificar se está funcionando.
+    controlador.userEntity = userEntity;
   }
-
+ */
   @override
   void dispose() {
     b1.dispose();
@@ -46,9 +48,13 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   @override
   void initState() {
     super.initState();
-    controlador = SignUpVerificationController();
+    // controlador = SignUpVerificationController();
+    controlador = Modular.get<SignUpVerificationController>();
     //controlador.email = widget.email;
-    controlador.setRepository(RestDioSignupDataSource());
+    // controlador.setRepository(RestDioSignupDataSource());
+
+    controlador.userEntity = widget.userEntity;
+
     verificationCodeDisposer = reaction(
       (_) => controlador.verificationCodeObs!,
       verificationCodeHandler,
@@ -81,9 +87,12 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
   }
 
   void verificationCodeHandler(dz.Either<Failure, bool> message) {
-    message.fold((l) => showDialogMessage("Falha", "$l"), (r) {
+    message.fold((l) => showDialogMessage("Falha", "$l.errorMessage"), (r) {
       if (r) {
-        showDialogMessage("Sucesso", "Codigo verificado com sucesso");
+        // showDialogMessage("Sucesso", "Codigo verificado com sucesso");
+        // Navigator.pushReplacement(context, toMainPage, arguments: userEntity);
+        Modular.to
+            .pushReplacementNamed(toMainPage, arguments: widget.userEntity);
       } else {
         showDialogMessage("Falha", "Codigo invalido");
       }
@@ -107,7 +116,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
                     const Text('Código', style: TextStyle(fontSize: 45)),
                     const SizedBox(height: 24),
                     const Text('Um código foi enviado para'),
-                    Text("> ${userEntity.email} <"),
+                    Text("> ${widget.userEntity.email} <"),
                     const SizedBox(height: 24),
                     _buildRowNumbersField(formWidth),
                     const SizedBox(height: 24),

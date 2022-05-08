@@ -16,7 +16,7 @@ import 'package:ohdonto/stream_teste/stream_page_mobx.dart';
 import 'package:ohdonto/teste/teste_page.dart';
 
 import 'app/pages/main_page.dart';
-import 'app_modele.dart';
+import 'app_module.dart';
 
 void main() {
   runApp(ModularApp(module: AppModule(), child: const OhDontoApp()));
