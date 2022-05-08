@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:ohdonto/routes.dart';
 import 'package:ohdonto/shared/topbar_backbutton_widget.dart';
-import 'package:ohdonto/signin_signup/presentation/routers.dart';
 
 // ignore: must_be_immutable
 class OnboardingPageContent extends StatelessWidget {
@@ -104,6 +105,7 @@ class OnboardingPageContent extends StatelessWidget {
   }
 
   void skip(context) {
-    Navigator.pushReplacementNamed(context, toGetStarted);
+    //Navigator.pushReplacementNamed(context, toGetStarted);
+    Modular.to.navigate(toGetStartedPage);
   }
 }
