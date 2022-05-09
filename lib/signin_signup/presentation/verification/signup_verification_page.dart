@@ -29,11 +29,10 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
 /*   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     userEntity = ModalRoute.of(context)?.settings.arguments as UserEntity;
     controlador.userEntity = userEntity;
-  }
- */
+  } */
+
   @override
   void dispose() {
     b1.dispose();
@@ -56,9 +55,7 @@ class _SignUpVerificationPageState extends State<SignUpVerificationPage> {
     controlador.userEntity = widget.userEntity;
 
     verificationCodeDisposer = reaction(
-      (_) => controlador.verificationCodeObs!,
-      verificationCodeHandler,
-    );
+        (_) => controlador.verificationCodeObs!, verificationCodeHandler);
 
     b1 = FocusNode();
     b2 = FocusNode();
