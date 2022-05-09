@@ -6,6 +6,7 @@ import 'package:ohdonto/signin_signup/presentation/get-started/signin_signup_get
 import 'package:ohdonto/signin_signup/presentation/routers.dart';
 import 'package:ohdonto/signin_signup/presentation/signin/form_based_sign_in_usecase.dart';
 import 'package:ohdonto/signin_signup/presentation/signin/sign_in_widget_controller.dart';
+import 'package:ohdonto/signin_signup/presentation/signin/sign_in_widget_page.dart';
 import 'package:ohdonto/signin_signup/presentation/signup/sign_up_controller.dart';
 import 'package:ohdonto/signin_signup/presentation/signup/sign_up_widget_page.dart';
 import 'package:ohdonto/signin_signup/presentation/verification/signup_verification_controller.dart';
@@ -30,7 +31,7 @@ class SignInSignUpModule extends Module {
         Bind.singleton((i) => SignUpController(repository: i.get())),
 
         //socialnetwork
-        Bind.singleton((i) => SocialNetworkController(repository: i.get())),
+        Bind.singleton((i) => SocialNetworkController()), //add repository
 
         //verificaton code
         Bind.singleton(
@@ -45,14 +46,21 @@ class SignInSignUpModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
+        //getstarted
         ChildRoute('/',
             child: (context, args) => const SignInSignUpGetStartedPage()),
+        //signup
         ChildRoute('/$toSignUpPage',
             child: (context, args) => const SignUpWidgetPage()),
+        //signin
+        ChildRoute('/$toSignInPage',
+            child: (context, args) => const SignInWidget()),
+        //verification
         ChildRoute('/$toVerificationPage',
             child: (context, args) => SignUpVerificationPage(
                   userEntity: args.data,
                 )),
+        //mainpage
         ModuleRoute('/$toMainPage', module: MainModule())
       ];
 }

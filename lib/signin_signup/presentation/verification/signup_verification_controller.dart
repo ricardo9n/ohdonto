@@ -72,9 +72,9 @@ abstract class _SignUpVerificationControllerBase with Store {
     //debugPrint("verify> $userCode -> $sendVerificationCodeObs");
     verificationCodeObs = await sendVerificationCodeObs;
 
-    verificationCodeObs?.fold(
-        (failure) => codeVerificationErrorMessage = failure.toString(),
-        (result) => verificationCodeResultValidation = result);
+    // verificationCodeObs?.fold(
+    //     (failure) => codeVerificationErrorMessage = failure.toString(),
+    //     (result) => verificationCodeResultValidation = result);
     //setErrorMessage();
   }
 

@@ -54,7 +54,9 @@ class _SignInWidgetState extends State<SignInWidget> {
   }
 
   void handleSignInSuccess(UserEntity? userEntity) {
-    Navigator.pushNamed(context, toMainPage, arguments: userEntity);
+    // Navigator.pushNamed(context, toMainPage, arguments: userEntity);
+
+    Modular.to.pushNamed(toMainPage, arguments: userEntity);
   }
 
   @override

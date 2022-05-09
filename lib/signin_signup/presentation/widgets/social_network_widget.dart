@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:ohdonto/signin_signup/datasource/google_signup_datasource.dart';
+import 'package:ohdonto/signin_signup/datasource/signin_signup_datasource.dart';
 import 'package:ohdonto/signin_signup/presentation/widgets/defaul_button_widget.dart';
 import 'package:ohdonto/signin_signup/presentation/widgets/social_network_controller.dart';
+import 'package:ohdonto/signin_signup/repositories/signin_signup_repository.dart';
+import 'package:ohdonto/signin_signup/repositories/signin_signup_repository_impl.dart';
 
 class SocialNetworkWidget extends StatefulWidget {
   const SocialNetworkWidget({Key? key}) : super(key: key);
@@ -65,10 +69,10 @@ class _SocialNetworkWidgetState extends State<SocialNetworkWidget> {
         Expanded(
             child: _buildSocialNetworkButton(
                 "assets/images/google.png", "Google", () async {
-          // SignInSignUpDataSource dataSource = GoogleSignUpDataSource();
-          // SignInSignUpRepository repository =
-          //     SignInSignUpRepositoryImpl(datasource: dataSource);
-          // controller?.setRepository(repo: repository);
+          SignInSignUpDataSource dataSource = GoogleSignUpDataSource();
+          SignInSignUpRepository repository =
+              SignInSignUpRepositoryImpl(datasource: dataSource);
+          controller?.setRepository(repo: repository);
           controller?.googleSignUp();
         })),
         Expanded(
